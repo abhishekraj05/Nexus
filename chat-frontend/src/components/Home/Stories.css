@@ -1,0 +1,332 @@
+/* --- MAIN BAR --- */
+.stories-container {
+    display: flex;
+    gap: 15px;
+    padding: 20px 0;
+    overflow-x: auto; /* Horizontal Scroll */
+    background-color: #000;
+    border-bottom: 1px solid #3f3f46;
+    scrollbar-width: none; /* Firefox scrollbar hide */
+}
+
+.stories-container::-webkit-scrollbar {
+    display: none; /* Chrome scrollbar hide */
+}
+
+/* Story Item */
+.story-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    min-width: 70px;
+}
+
+.story-circle-border {
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    padding: 3px; /* Border motai */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: #3f3f46; /* Default grey border */
+}
+
+/* Colorful Border for Active Stories */
+.active-story {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+}
+
+/* Uploading Animation */
+.uploading-border {
+    border: 3px dashed #3b82f6;
+    animation: spin 2s linear infinite;
+}
+
+.story-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #000; /* Separation between border and image */
+}
+
+.story-username {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #e4e4e7;
+}
+
+/* Add Button Badge */
+.add-story-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #000;
+}
+
+/* --- VIEWER MODAL --- */
+.story-viewer-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #1a1a1a;
+    z-index: 5000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.story-content {
+    position: relative;
+    width: 100%;
+    max-width: 450px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: black;
+}
+
+.story-media-full {
+    max-width: 100%;
+    max-height: 80vh;
+    object-fit: contain;
+}
+
+/* Viewer Header */
+.story-header-info {
+    position: absolute;
+    top: 20px; left: 15px;
+    display: flex; align-items: center; gap: 10px;
+    z-index: 10;
+    width: 100%;
+}
+
+.story-header-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+}
+
+.story-header-name {
+    color: white; font-weight: bold; font-size: 14px;
+}
+
+.story-time {
+    color: #a1a1aa; font-size: 12px; margin-left: 5px;
+}
+
+.story-close-btn {
+    position: absolute;
+    top: 20px; right: 20px;
+    background: none; border: none; color: white;
+    z-index: 5001; cursor: pointer;
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+
+/* src/components/Home/Stories.css */
+
+/* 
+.story-actions {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 15px; 
+    z-index: 5001;
+}
+
+
+.story-action-btn {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: white;
+    transition: all 0.2s;
+    backdrop-filter: blur(4px); 
+}
+
+.story-action-btn.edit:hover {
+    background: rgba(59, 130, 246, 0.5); 
+}
+
+.story-action-btn.delete:hover {
+    background: rgba(239, 68, 68, 0.5);
+}
+
+
+.spinner-small {
+    width: 16px;
+    height: 16px;
+    border: 2px solid white;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+} */
+
+
+
+/* src/components/Home/Stories.css */
+
+/* Close Button (Top Right) */
+/* .story-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: white;
+    z-index: 5001;
+    cursor: pointer;
+}
+
+.story-delete-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px; 
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5001;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.story-delete-btn:hover {
+    background: rgba(239, 68, 68, 0.2); /* Red tint on hover */
+} */
+
+
+/* src/components/Home/Stories.css */
+
+/* --- VIEWER HEADER (User Info) --- */
+.story-header-info {
+    position: absolute;
+    top: 20px; 
+    left: 15px;
+    /* right: 60px;  <-- ISKO HATA DIYA */
+    /* display: flex; <-- ISKO BHI HATA DIYA */
+    /* justify-content: space-between; <-- YEHI CULPRIT THA */
+    
+    z-index: 20; 
+    pointer-events: none; 
+}
+
+/* Left side: Avatar + Name */
+.user-details-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    pointer-events: auto; 
+}
+
+/* --- THREE DOT CONTAINER (AB YE FIX RAHEGA) --- */
+.story-menu-container {
+    /* Isko screen ke hisaab se fix kar diya */
+    position: fixed; 
+    top: 20px; 
+    right: 60px; /* Close button (20px) se thoda door */
+    z-index: 5002; /* Close button ke barabar */
+    pointer-events: auto;
+}
+
+/* --- THREE DOT BUTTON --- */
+.three-dot-btn {
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: white;
+    width: 32px; 
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    backdrop-filter: blur(4px);
+    transition: background 0.2s;
+}
+
+.three-dot-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* --- DROPDOWN MENU --- */
+.story-dropdown {
+    position: absolute;
+    top: 40px; /* Button ke thik niche */
+    right: 0;  /* Button ke right edge se align */
+    background-color: #262626;
+    border-radius: 8px;
+    width: 130px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.8);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    z-index: 5003;
+    border: 1px solid #3f3f46;
+}
+
+.menu-item {
+    background: none;
+    border: none;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.menu-item:hover {
+    background-color: #3f3f46;
+}
+
+.menu-item.delete {
+    color: #ef4444;
+}
+
+.menu-item.delete:hover {
+    background-color: rgba(239, 68, 68, 0.15);
+}
+
+/* --- CLOSE BUTTON (Ye apni jagah pe rahega) --- */
+.story-close-btn {
+    position: fixed; /* Absolute ki jagah Fixed taaki scroll pe na bhage */
+    top: 20px;
+    right: 15px; 
+    background: rgba(0,0,0,0.3);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    border: none;
+    color: white;
+    z-index: 5002;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(4px);
+}

@@ -1,0 +1,565 @@
+/* src/components/Chat/ChatBox.css */
+
+/* === 1. ANIMATIONS === */
+/* Message bubbles ke liye slide animation */
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInFromRight {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+/* Modal/Menu popups ke liye fade animation */
+@keyframes modal-fade-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes context-fade-in {
+  from { opacity: 0; transform: scale(0.98) translateY(-5px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* src/components/Chat/ChatBox.css */
+
+
+
+/* --- 1. RECEIVER BUBBLE CONTENT FIX (White Text Problem) --- */
+/* Receiver bubble ko force karte hain ki woh dark color set kare. */
+.message-bubble.receiver, 
+.message-bubble.receiver .timestamp,
+.message-bubble.receiver .message-file, /* File links */
+.message-bubble.receiver span {
+    /* Isse har andar ka text element dark ho jayega */
+    color: #1c1c1e !important; 
+}
+
+/* --- 2. SENDER BUBBLE TEXT (To be safe) --- */
+/* Sender bubble ka text white hi rahega */
+.message-bubble.sender span {
+    color: white !important; 
+}
+
+/* --- 3. HEADER TEXT FIX (Agar naam/status white aa raha ho) --- */
+.chat-header .chat-name,
+.chat-header .chat-status {
+    /* Global white color ko override karein */
+    color: #111b21 !important; 
+}
+
+/* === 2. MAIN LAYOUT === */
+/* Poore chat window ka container */
+.chat-box-container {
+  flex: 1; /* Bachi hui poori width le lega */
+  display: flex;
+  flex-direction: column;
+  /* height: 100vh;  */
+  height: 100%;   /*  add */
+  width: 100%;
+  background-color: #f0f2f5;
+  position: relative; /* Popups ko position karne ke liye zaroori */
+  overflow: hidden;
+}
+
+
+/* Poore chat window ka container */
+.chat-box-container {
+    /* FIX 1: Width/Height 100% rakhein */
+    width: 100%;
+    height: 100%; 
+    
+    display: flex;
+    flex-direction: column;
+    
+    /* REMOVED: height: 100vh; */
+    
+    background-color: #f0f2f5;
+    position: relative;
+    overflow: hidden; /* Yeh zaroori hai */
+}
+
+
+/* === 3. CHAT HEADER (TOP BAR) === */
+/* Top bar jismein naam aur avatar hota hai */
+.chat-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  background-color: #f0f2f5;
+  border-bottom: 1px solid #ddd;
+  flex-shrink: 0; /* Taaki yeh shrink na ho */
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 15px;
+}
+.chat-header-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer; /* Profile modal kholne ke liye */
+}
+.chat-name {
+  font-weight: 500;
+  color: #111b21;
+}
+.chat-status {
+  font-size: 0.8rem;
+  color: #54656f;
+}
+/* "is typing..." text ke liye style */
+.chat-status .typing-indicator {
+  color: #00a884; /* Green color */
+  font-style: italic;
+  font-weight: 500;
+}
+/* Header ke icons (Call, Menu) */
+.chat-header-icons {
+  display: flex;
+  gap: 20px;
+  font-size: 1.2rem;
+  color: #54656f;
+  cursor: pointer;
+  position: relative; /* Menu dropdown ke liye */
+}
+/* Header 3-dot menu dropdown */
+.header-menu {
+  position: absolute;
+  top: 100%; /* Icon ke theek neeche */
+  right: 5px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  width: 180px;
+  padding: 5px 0;
+  animation: context-fade-in 0.1s ease-out;
+}
+.header-menu .menu-option {
+  padding: 10px 15px;
+  cursor: pointer;
+}
+.header-menu .menu-option:hover {
+  background-color: #f0f0f0;
+}
+
+/* === 4. MESSAGE AREA === */
+/* Jahaan saari messages dikhti hain */
+.message-area {
+  flex: 1; /* Saari bachi hui height le lega */
+  overflow-y: auto; /* Zaroorat padne par scrollbar dega */
+  padding: 10px 10%;
+  /* padding-bottom: 70px; */
+  display: flex;
+  flex-direction: column;
+  gap: 3px; /* Bubbles ke beech halka gap */
+  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
+  background-repeat: repeat;
+  background-color: #e5ddd5;
+}
+.no-messages-placeholder {
+  text-align: center;
+  margin-top: 40px;
+  color: #54656f;
+  background: #fcf0c4;
+  padding: 10px;
+  border-radius: 8px;
+  align-self: center;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+/* === 5. MESSAGE BUBBLES === */
+/* Wrapper jo bubble ko left/right align karta hai */
+.message-wrapper {
+  display: flex;
+  width: 100%;
+  position: relative; /* Selection checkbox ke liye */
+}
+.message-wrapper.sender {
+  justify-content: flex-end; /* Sender (Aap) */
+}
+.message-wrapper.receiver {
+  justify-content: flex-start; /* Receiver (Doosra) */
+}
+
+/* Asli message bubble */
+.message-bubble {
+  width: -moz-fit-content;
+  width: fit-content; /* Text jitni chaudai */
+  max-width: 75%;
+  padding: 8px 12px;
+  border-radius: 18px;
+  word-wrap: break-word;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.4;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.08);
+  margin-bottom: 5px;
+  position: relative; /* Reactions ko position karne ke liye */
+}
+/* Aapka bubble */
+.message-bubble.sender {
+  animation: slideInFromRight 0.3s ease-out;
+  background: linear-gradient(135deg, #007bff, #0056b3); /* Modern Blue */
+  color: white;
+  border-bottom-right-radius: 4px; /* Tail look */
+}
+/* Doosre ka bubble */
+.message-bubble.receiver {
+  animation: slideInFromLeft 0.3s ease-out;
+  background-color: #ffffff; /* White */
+  color: #1c1c1e;
+  border-bottom-left-radius: 4px; /* Tail look */
+}
+/* Group mein doosre ka naam */
+.sender-name {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #00a884; /* Green */
+  margin-bottom: 3px;
+}
+/* Deleted message ka style */
+.message-bubble.deleted {
+  background-color: #f7f7f7;
+  border: 1px dashed #ccc;
+  box-shadow: none;
+}
+.message-bubble .deleted-text {
+  font-style: italic;
+  color: #777;
+}
+
+
+
+
+/* === 5.5 MEDIA MESSAGES (Image/Video/Audio/File) === */
+/* PICHLE CODE (5.5) KO REPLACE KARKE YEH DAALEIN */
+
+/* Image aur Video ke liye */
+.message-bubble .message-image,
+.message-bubble .message-video {
+  display: block;
+  max-width: 100%; /* Bubble ki content-box width se bada na ho */
+  height: auto;     /* Aspect ratio maintain rakhega */
+  max-height: 60vh; /* Bahut lambi images ko limit karega (60% screen height) */
+  border-radius: 10px; /* Thoda rounded corner */
+  margin-bottom: 4px;  /* Meta se gap */
+}
+
+/* Audio player ke liye */
+.message-bubble .message-audio {
+  width: 100%;
+  min-width: 250px; /* Taaki player bahut chhota na ho */
+  margin-bottom: 4px;
+}
+
+/* General file link ke liye */
+.message-bubble .message-file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 10px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: inherit; /* Bubble ke text ka color le lega */
+  font-weight: 500;
+  word-break: break-all; /* Lambe file names ko wrap karega */
+}
+
+/* Sender ke file link ka color */
+.message-bubble.sender .message-file {
+  color: white;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.message-bubble .message-file:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.message-bubble.sender .message-file:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+
+
+
+
+
+/* === 6. MESSAGE META (Time & Ticks) === */
+.message-meta {
+  display: flex;
+  align-items: center;
+  align-self: flex-end;
+  margin-top: 5px;
+  margin-left: 15px;
+}
+.timestamp {
+  font-size: 0.7rem;
+}
+.message-bubble.receiver .timestamp {
+  color: #00000080; /* Receiver ke liye */
+}
+.message-bubble.sender .timestamp {
+   color: #ffffffb3; /* Sender ke liye */
+}
+/* Ticks (✓ / ✓✓) */
+.ticks {
+  font-size: 0.8rem;
+  font-weight: bold;
+  line-height: 1;
+  margin-left: 5px;
+}
+.message-bubble.sender .ticks {
+   color: #ffffffb3; /* Default (Sent / Delivered) */
+}
+.message-bubble.sender .ticks.seen {
+   color: #4fc3f7; /* Seen (Blue) */
+}
+
+/* === 7. MESSAGE REACTIONS (👍) === */
+.message-reactions {
+  align-self: flex-start;
+  display: flex;
+  gap: 3px;
+  position: absolute;
+  bottom: -10px; /* Bubble ke neeche overlap */
+  left: 5px;
+}
+.message-bubble.sender .message-reactions {
+    align-self: flex-end;
+    left: auto;
+    right: 5px;
+}
+.reaction-emoji {
+  background-color: #f7f7f7;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1px 5px;
+  font-size: 0.8rem;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+  cursor: default;
+}
+.reaction-count {
+  font-size: 0.7rem;
+  color: #333;
+  margin-left: 2px;
+}
+
+/* === 8. MESSAGE INPUT (Neeche ka box) === */
+.message-input-container {
+  padding: 8px 12px;
+  background-color: #f0f2f5;
+  border-top: 1px solid #ddd;
+  flex-shrink: 0;
+
+  /* add */
+  position: relative; 
+  z-index: 10; 
+  flex-shrink: 0;
+}
+.message-input-form {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 20px;
+  padding: 0 10px;
+}
+.message-input {
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  font-size: 0.95rem;
+}
+.message-input:focus {
+  outline: none;
+}
+.send-button {
+  background-color: #007bff; /* Blue */
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.send-button:hover {
+  background-color: #0056b3;
+}
+
+/* === 9. SELECTION MODE (Multi-Delete) === */
+/* Header jab selection mode mein ho */
+.selection-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 10px;
+  color: #007bff;
+}
+.header-btn {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 10px;
+}
+.header-btn.delete-btn {
+  color: #e11d48; /* Red */
+}
+.header-btn.delete-btn:disabled {
+  color: #aaa;
+  cursor: not-allowed;
+}
+.selection-count {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+/* Jab selection mode on ho */
+.message-wrapper.selection-mode {
+  cursor: pointer;
+  background-color: rgba(204, 229, 255, 0.5); /* Halka highlight */
+}
+/* Checkbox (ya emoji) */
+.message-selection-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  font-size: 1.5rem;
+  color: #007bff;
+}
+.message-selection-overlay.receiver {
+  left: 10px; 
+}
+.message-selection-overlay.sender {
+  right: 10px;
+}
+/* Selected message bubble ka style */
+.message-bubble.selected-bubble {
+  /* Halka highlight (selection-mode wrapper ke upar) */
+  box-shadow: 0 0 0 2px #4481c1; 
+}
+
+/* === 10. POPUPS (Modal, Context, Picker) === */
+/* Peeche ka parda */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+/* "Delete for Me" modal */
+.delete-modal-content {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 340px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  animation: modal-fade-in 0.2s ease-out;
+}
+.delete-modal-content h4 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  color: #111;
+  text-align: left;
+}
+.delete-modal-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.2s;
+}
+.delete-modal-btn.delete-everyone {
+  background-color: #e11d48;
+  color: white;
+}
+.delete-modal-btn.delete-everyone:hover {
+  background-color: #be123c;
+}
+.delete-modal-btn { /* "Delete for Me" */
+  background-color: #f1f5f9;
+  color: #333;
+}
+.delete-modal-btn:hover {
+  background-color: #e2e8f0;
+}
+.delete-modal-btn.cancel {
+  background-color: transparent;
+  color: #007bff;
+  font-weight: bold;
+}
+.delete-modal-btn.cancel:hover {
+  background-color: #f1f5f9;
+}
+
+/* Right-click Context Menu */
+.context-menu {
+  position: fixed;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1200;
+  min-width: 160px;
+  padding: 6px 0;
+  animation: context-fade-in 0.1s ease-out;
+}
+.menu-option {
+  padding: 10px 15px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  color: #333;
+}
+.menu-option:hover {
+  background-color: #f0f2f5;
+}
+.menu-option.delete-option {
+  color: #e11d48;
+}
+
+/* Emoji Picker positioning */
+/* === EMOJI PICKER CONTAINER (FIXED) === */
+.emoji-picker-container {
+  /* 1. 'fixed' position ka istemal karein taaki yeh 'overflow: hidden' se bahar aa sake */
+  position: fixed; 
+  
+  /* 2. z-index ko doosre popups (jaise context menu) se upar rakhein */
+  z-index: 1100; 
+  
+  /* 3. Styling (Aapki styling sahi thi) */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border-radius: 10px;
+  overflow: hidden; /* Yeh picker ke andar ke content ko round corner dega */
+  
+  /* 4. Animation (Optional, achha look deta hai) */
+  animation: context-fade-in 0.1s ease-out;
+}
+

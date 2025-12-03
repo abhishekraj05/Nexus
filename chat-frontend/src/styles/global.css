@@ -1,0 +1,1153 @@
+/* src/styles/global.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+
+
+/* Basic Reset */
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+
+
+body, .app-container {
+
+    font-family: 'Inter', sans-serif;
+
+    background-color: #18181b; /* zinc-900 */
+
+    /* color: white; */
+
+}
+
+
+
+/* Left Sidebar aur Headers ko White Color dein */
+
+.left-sidebar, 
+
+.chat-toggle-button,
+
+.chat-panel-header, 
+
+.chat-panel-tab.active,
+
+.logo-full,
+
+.logo-icon,
+
+h1, h2, h3 { 
+
+    color: white !important; /* In sabko white ki zaroorat hai */
+
+}
+
+
+
+/* Nav Item Link Color ko White karein */
+
+.nav-item, 
+
+.nav-item:hover,
+
+.nav-item-active {
+
+    color: white !important; 
+
+    /* Ye nav-item wala fix aapki purani problem bhi solve karega */
+
+}
+
+
+
+/* Main Content area ke placeholders ko white color dein */
+
+.content-container {
+
+    color: white;
+
+}
+
+
+
+
+
+h1 { font-size: 1.875rem; font-weight: 700; }
+
+h2 { font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem; }
+
+h3 { font-size: 1.125rem; font-weight: 600; }
+
+
+
+.app-container {
+
+    display: flex;
+
+    height: 100vh;
+
+}
+
+
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+
+    width: 5px;
+
+    height: 5px;
+
+}
+
+::-webkit-scrollbar-track {
+
+    background: #27272a; /* zinc-800 */
+
+}
+
+::-webkit-scrollbar-thumb {
+
+    background: #52525b; /* zinc-600 */
+
+    border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb:hover {
+
+    background: #71717a; /* zinc-500 */
+
+}
+
+
+
+/* --- Left Sidebar --- */
+
+.left-sidebar {
+
+    width: 5rem; /* w-20 */
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    height: 100%;
+
+    background-color: #000;
+
+    border-right: 1px solid #3f3f46; /* zinc-700 */
+
+    padding: 1rem; /* p-4 */
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    z-index: 20;
+
+}
+
+.logo-container {
+
+    width: 100%;
+
+    margin-bottom: 2.5rem; /* mb-10 */
+
+}
+
+.logo-full { 
+
+    display: none; 
+
+    font-size: 1.5rem; 
+
+    font-weight: 700; 
+
+}
+
+.logo-icon { 
+
+    display: block; 
+
+    font-size: 1.875rem; 
+
+    font-weight: 700; 
+
+    text-align: center;
+
+}
+
+.nav-list {
+
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1rem; /* space-y-4 */
+
+    width: 100%;
+
+}
+
+.nav-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem; /* space-x-4 */
+
+    padding: 0.5rem; /* p-2 */
+
+    border-radius: 0.5rem; /* rounded-lg */
+
+    cursor: pointer;
+
+    width: 100%;
+
+}
+
+.nav-item:hover {
+
+    background-color: #27272a; /* zinc-800 */
+
+}
+
+.icon-svg {
+
+    width: 1.5rem; /* w-6 */
+
+    height: 1.5rem; /* h-6 */
+
+    flex-shrink: 0;
+
+}
+
+.nav-item-text {
+
+    display: none;
+
+    font-size: 1.125rem; /* text-lg */
+
+}
+
+.more-item {
+
+    margin-top: auto;
+
+}
+
+
+
+/* --- Main Content --- */
+
+.main-content {
+
+    flex: 1;
+
+    margin-left: 5rem; /* ml-20 */
+
+    height: 100vh;
+
+    overflow-y: auto;
+
+}
+
+.content-container {
+
+    margin: 0 auto;
+
+    padding: 2rem; /* p-8 */
+
+}
+
+.home-view-grid {
+
+    max-width: 56rem; /* max-w-4xl */
+
+    display: grid;
+
+    grid-template-columns: 1fr;
+
+    gap: 3rem; /* gap-12 */
+
+}
+
+.home-view-feed {
+
+    /* takes full width on mobile */
+
+}
+
+.home-view-suggestions {
+
+    display: none; /* hidden */
+
+}
+
+
+
+/* --- Friend System View --- */
+
+.friend-system-view {
+
+    max-width: 42rem; /* max-w-2xl */
+
+}
+
+.friend-system-tabs {
+
+    display: flex;
+
+    gap: 0.5rem; /* space-x-2 */
+
+    border-bottom: 1px solid #3f3f46; /* zinc-700 */
+
+    margin-bottom: 1rem; /* mb-4 */
+
+}
+
+.friend-system-tab {
+
+    padding: 0.5rem 1rem; /* py-2 px-4 */
+
+    font-weight: 500;
+
+    color: #a1a1aa; /* text-zinc-400 */
+
+    cursor: pointer;
+
+    background: none;
+
+    border: none;
+
+}
+
+.friend-system-tab:hover {
+
+    color: white;
+
+}
+
+.friend-system-tab.active {
+
+    border-bottom: 2px solid white;
+
+    color: white;
+
+}
+
+.friend-system-content {
+
+    background-color: #000;
+
+    border: 1px solid #3f3f46; /* zinc-700 */
+
+    border-radius: 0.5rem; /* rounded-lg */
+
+}
+
+
+
+/* --- Placeholders --- */
+
+.placeholder-subtitle {
+
+    color: #a1a1aa; /* zinc-400 */
+
+    margin-top: 0.5rem;
+
+}
+
+.placeholder-card {
+
+    background-color: #000;
+
+    border: 1px solid #3f3f46; /* zinc-700 */
+
+    border-radius: 0.5rem; /* rounded-lg */
+
+    padding: 1rem; /* p-4 */
+
+}
+
+.placeholder-card-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem; /* space-x-3 */
+
+    margin-bottom: 0.75rem; /* mb-3 */
+
+}
+
+.placeholder-card-header img {
+
+    width: 2.5rem;
+
+    height: 2.5rem;
+
+    border-radius: 9999px;
+
+}
+
+.placeholder-card-header span {
+
+    font-weight: 600;
+
+}
+
+.placeholder-card-image {
+
+    width: 100%;
+
+    border-radius: 0.5rem; /* rounded-lg */
+
+}
+
+.placeholder-card p {
+
+    margin-top: 0.75rem; /* mt-3 */
+
+}
+
+
+
+.suggestions-container h2 {
+
+    color: #a1a1aa; /* zinc-400 */
+
+}
+
+.suggestions-container ul {
+
+    list-style: none;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.75rem; /* space-y-3 */
+
+}
+
+.suggestion-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+}
+
+.suggestion-item-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem; /* space-x-3 */
+
+}
+
+.suggestion-item-info img {
+
+    width: 2.5rem;
+
+    height: 2.5rem;
+
+    border-radius: 9999px;
+
+}
+
+.suggestion-item button {
+
+    color: #3b82f6; /* text-blue-500 */
+
+    font-weight: 600;
+
+    font-size: 0.875rem;
+
+    background: none;
+
+    border: none;
+
+    cursor: pointer;
+
+}
+
+
+
+/* --- Chat Toggle Button --- */
+
+.chat-toggle-button {
+
+    position: fixed;
+
+    bottom: 1.5rem; /* bottom-6 */
+
+    right: 1.5rem; /* right-6 */
+
+    background-color: #2563eb; /* bg-blue-600 */
+
+    color: white;
+
+    padding: 1rem; /* p-4 */
+
+    border-radius: 9999px; /* rounded-full */
+
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-lg */
+
+    z-index: 30;
+
+    cursor: pointer;
+
+    transition: all 0.3s;
+
+    border: none;
+
+}
+
+.chat-toggle-button:hover {
+
+    background-color: #1d4ed8; /* hover:bg-blue-700 */
+
+}
+
+
+
+/* --- Chat Panel --- */
+
+.chat-panel {
+
+    position: fixed;
+
+    bottom: 6rem; /* bottom-24 */
+
+    right: 1.5rem; /* right-6 */
+
+    width: 20rem; /* w-80 */
+
+    height: 450px;
+
+    background-color: #27272a; /* zinc-800 */
+
+    border: 1px solid #3f3f46; /* zinc-700 */
+
+    border-radius: 0.75rem; /* rounded-xl */
+
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05); /* shadow-xl */
+
+    display: flex;
+
+    flex-direction: column;
+
+    z-index: 1000 !important;
+
+}
+
+.chat-panel-header {
+
+    padding: 1rem; /* p-4 */
+
+    border-bottom: 1px solid #3f3f46; /* zinc-700 */
+
+}
+
+.chat-panel-header h3 {
+
+    font-size: 1.125rem; /* text-lg */
+
+    font-weight: 600;
+
+    text-align: center;
+
+}
+
+.chat-panel-tabs {
+
+    display: flex;
+
+    padding: 0.25rem; /* p-1 */
+
+    background-color: #18181b; /* zinc-900 */
+
+}
+
+.chat-panel-tab {
+
+    flex: 1;
+
+    padding: 0.5rem; /* p-2 */
+
+    font-size: 0.875rem; /* text-sm */
+
+    font-weight: 500;
+
+    border-radius: 0.25rem; /* rounded */
+
+    color: #a1a1aa; /* text-zinc-400 */
+
+    cursor: pointer;
+
+    background: none;
+
+    border: none;
+
+}
+
+.chat-panel-tab:hover {
+
+    background-color: #27272a; /* hover:bg-zinc-800 */
+
+}
+
+.chat-panel-tab.active {
+
+    background-color: #3f3f46; /* bg-zinc-700 */
+
+    color: white;
+
+}
+
+.chat-panel-content {
+
+    flex: 1;
+
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+
+}
+
+/* src/styles/global.css */
+
+
+
+/* ... .chat-panel (Default List View) stays the same ... */
+
+.chat-panel.expanded {
+
+    /* Floating Bada Box Size */
+
+    width: 480px !important; 
+
+    
+
+    /* FIX 1: Fixed height ki jagah Max-Height use karein */
+
+    height: auto !important; /* Height content ke hisaab se adjust hogi */
+
+    max-height: 90vh; /* Screen height ka 90% hi legi */
+
+    min-height: 400px; /* Minimum height bhi denge taaki bahut chhota na ho */
+
+    
+
+    /* Position: Fixed Floating Corner */
+
+    top: unset !important;
+
+    bottom: 1.5rem !important; 
+
+    right: 1.5rem !important; 
+
+    
+
+    /* Look: Aapke purane design jaisa gol kona */
+
+    border-radius: 0.75rem !important; 
+
+    
+
+    /* Animation */
+
+    transition: all 0.3s ease-in-out;
+
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -2px rgba(0,0,0,0.05) !important;
+
+
+
+    /* FIX 2: Flexbox bhi apply karein taaki children theek se fit ho */
+
+    display: flex;
+
+    flex-direction: column;
+
+}
+
+/* Mobile ke liye (Jab screen choti ho) */
+
+@media (max-width: 640px) {
+
+    .chat-panel.expanded {
+
+        /* Full screen overaly bana denge jab screen choti ho */
+
+        width: 100% !important;
+
+        height: 100% !important;
+
+        bottom: 0 !important;
+
+        right: 0 !important;
+
+        border-radius: 0 !important;
+
+    }
+
+}
+
+
+
+
+
+/* --- Dummy Component Styles --- */
+
+.chat-list-dummy {
+
+    padding: 0.5rem;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 0.5rem;
+
+}
+
+.chat-list-dummy p {
+
+    color: #a1a1aa;
+
+    font-size: 0.875rem;
+
+    padding: 1rem;
+
+    text-align: center;
+
+}
+
+.chat-list-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    padding: 0.5rem;
+
+    border-radius: 0.5rem;
+
+    cursor: pointer;
+
+}
+
+.chat-list-item:hover {
+
+    background-color: #3f3f46; /* zinc-700 */
+
+}
+
+.chat-list-item img {
+
+    width: 2.5rem;
+
+    height: 2.5rem;
+
+    border-radius: 9999px;
+
+}
+
+.chat-list-item-name {
+
+    font-weight: 600;
+
+}
+
+.chat-list-item-msg {
+
+    font-size: 0.875rem;
+
+    color: #a1a1aa;
+
+}
+
+.dummy-button {
+
+    font-size: 0.75rem;
+
+    color: #60a5fa; /* blue-400 */
+
+    padding: 0.5rem;
+
+    background: none;
+
+    border: none;
+
+    cursor: pointer;
+
+    text-align: left;
+
+}
+
+
+
+.dummy-tab-content {
+
+    padding: 1rem;
+
+}
+
+.dummy-tab-content h3 {
+
+    margin-bottom: 0.75rem;
+
+}
+
+.dummy-tab-content p {
+
+    color: #a1a1aa;
+
+    font-size: 0.875rem;
+
+    margin-bottom: 1rem;
+
+}
+
+.dummy-list-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+    padding: 0.5rem;
+
+    border-radius: 0.5rem;
+
+}
+
+.dummy-list-item:hover {
+
+    background-color: #27272a;
+
+}
+
+.dummy-list-item img {
+
+    width: 2.5rem;
+
+    height: 2.5rem;
+
+    border-radius: 9999px;
+
+}
+
+.dummy-search-input {
+
+    width: 100%;
+
+    padding: 0.5rem;
+
+    border-radius: 0.25rem;
+
+    background-color: #3f3f46;
+
+    border: 1px solid #52525b;
+
+    color: white;
+
+}
+
+.dummy-request-item {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0.5rem;
+
+    border-radius: 0.5rem;
+
+}
+
+.dummy-request-item:hover {
+
+    background-color: #27272a;
+
+}
+
+.dummy-request-info {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+}
+
+.dummy-request-info img {
+
+    width: 2.5rem;
+
+    height: 2.5rem;
+
+    border-radius: 9999px;
+
+}
+
+.dummy-button-accept {
+
+    font-size: 0.75rem;
+
+    background-color: #2563eb;
+
+    color: white;
+
+    padding: 0.25rem 0.5rem;
+
+    border: none;
+
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+
+}
+
+.dummy-button-decline {
+
+    font-size: 0.75rem;
+
+    background-color: #52525b;
+
+    color: white;
+
+    padding: 0.25rem 0.5rem;
+
+    border: none;
+
+    border-radius: 0.25rem;
+
+    cursor: pointer;
+
+    margin-left: 0.5rem;
+
+}
+
+
+
+
+
+/* Responsive (Desktop) */
+
+@media (min-width: 1024px) { /* lg: */
+
+    .left-sidebar {
+
+        width: 16rem; /* w-64 */
+
+        padding: 1.5rem; /* p-6 */
+
+        align-items: flex-start;
+
+    }
+
+    .logo-full { display: block; }
+
+    .logo-icon { display: none; }
+
+    .nav-item-text { display: block; }
+
+
+
+    .main-content {
+
+        margin-left: 16rem; /* ml-64 */
+
+    }
+
+
+
+    .home-view-grid {
+
+        grid-template-columns: repeat(3, 1fr);
+
+    }
+
+    .home-view-feed { 
+
+        grid-column: span 2 / span 2; 
+
+    }
+
+    .home-view-suggestions { 
+
+        display: block; 
+
+        grid-column: span 1 / span 1; 
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+/* global.css (Puraana) */
+
+.nav-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 0.5rem;
+
+    border-radius: 0.5rem;
+
+    cursor: pointer;
+
+    width: 100%;
+
+}
+
+
+
+
+
+/* global.css (FIXED) */
+
+.nav-item {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 1rem;
+
+    padding: 0.5rem;
+
+    border-radius: 0.5rem;
+
+    cursor: pointer;
+
+    width: 100%;
+
+    
+
+    /* --- YEH DO LINE ADD KAREIN --- */
+
+    color: inherit; /* Isse text wapas white ho jayega */
+
+    text-decoration: none; /* Isse underline chali jaayegi */
+
+}
+
+
+
+/* Hover style (Pehle se hoga) */
+
+.nav-item:hover {
+
+    background-color: #27272a; /* zinc-800 */
+
+}
+
+
+
+/* Active page ka style (Yeh bhi add karein) */
+
+.nav-item.nav-item-active {
+
+    background-color: #27272a; /* Same as hover */
+
+    font-weight: 600; /* Active link ko thoda bold dikhayein */
+
+}
+
+
+
+
+
+
+
+/* src/styles/global.css (Neeche add karein) */
+
+
+
+.chat-window-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 0.75rem;
+
+}
+
+
+
+.chat-back-button {
+
+    background: none;
+
+    border: none;
+
+    padding: 0.25rem;
+
+    margin-left: -0.25rem;
+
+    cursor: pointer;
+
+    border-radius: 50%;
+
+}
+
+
+
+.chat-back-button:hover {
+
+    background-color: #3f3f46; /* zinc-700 */
+
+}
+
+
+
+/* Chat window mein padding hatane ke liye */
+
+.chat-panel-content.no-padding {
+
+    padding: 0;
+
+}   

@@ -1,0 +1,164 @@
+/* src/components/Home/Home.css */
+
+/* === POST CARD STYLES === */
+.post-card {
+    background-color: #18181b; /* Dark background */
+    border: 1px solid #3f3f46; /* zinc-700 border */
+    border-radius: 0.5rem;
+    margin-bottom: 2rem;
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+}
+
+.posts-wrapper {
+    margin-top: 1.5rem;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #3f3f46;
+}
+
+.post-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.post-username {
+    font-weight: 600;
+    flex-grow: 1;
+    color: white;
+}
+
+.post-time {
+    font-size: 0.8rem;
+    color: #a1a1aa; /* zinc-400 */
+}
+
+.post-media {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+.post-footer {
+    padding: 0.75rem 1rem;
+}
+
+.post-actions {
+    display: flex;
+    gap: 1.5rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #a1a1aa;
+}
+
+.action-icon {
+    cursor: pointer;
+    transition: color 0.15s;
+}
+
+.action-icon:hover {
+    color: #3b82f6; /* Blue-500 */
+}
+
+.post-likes {
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.post-caption {
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+}
+.post-username-caption {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.feed-end-message {
+    text-align: center;
+    padding: 2rem;
+    color: #a1a1aa;
+    font-style: italic;
+}
+
+/* === SUGGESTIONS STYLES === */
+.suggestions-container-home {
+    background-color: #000;
+    border: 1px solid #3f3f46;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    position: sticky; /* Sidebar ko fixed rakhega */
+    top: 2rem; /* Content container ke padding jitna */
+}
+
+.suggestions-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #a1a1aa; /* zinc-400 */
+    margin-bottom: 1rem;
+}
+
+.suggestions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.suggestion-item-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.suggestion-user-info {
+    display: flex;
+    align-items: center;
+}
+
+.suggestion-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.user-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestion-username {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.suggestion-reason {
+    font-size: 0.75rem;
+    color: #a1a1aa; /* zinc-400 */
+}
+
+.follow-button {
+    background: none;
+    border: none;
+    color: #3b82f6; /* Blue-500 */
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.follow-button:hover {
+    opacity: 0.8;
+}
+
+/* Mobile: Feed takes full width, Suggestions hides (via global.css) */
+/* global.css handles the grid layout and hiding/showing of columns */

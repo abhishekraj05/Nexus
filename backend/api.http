@@ -1,0 +1,96 @@
+### 1️⃣ Register User
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Abhishek",
+  "email": "abhi@example.com",
+  "password": "123456"
+}
+
+### 1️⃣ Register User
+POST http://localhost:5000/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Priya",
+  "email": "Priya@example.com",
+  "password": "123456"
+}
+
+
+### 2️⃣ Login User
+POST http://localhost:5000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "Priya@example.com",
+  "password": "123456"
+}
+
+# 👇 Copy the "token" from the login response and paste it below where {{"token"}} is used.
+
+
+### 3️⃣ Create Direct Chat (1-to-1)
+POST http://localhost:5000/api/chat/direct
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc0OGM3ZTYxODExYmVjZGM0YmUwOCIsImlhdCI6MTc2MTAzNjUwNCwiZXhwIjoxNzYxNjQxMzA0fQ.GGWq25Uano_nSrBpQ0QB-e4flSf5TnlnwQ09SVEDRac
+
+{
+  "members": ["68f7428b1c367395536d78f4"]
+}
+
+
+
+### 4️⃣ Create Group Chat
+POST http://localhost:5000/api/chat/group
+Content-Type: application/json
+Authorization: Bearer {{""token""}}
+
+{
+  "name": "My Friends Group",
+  "members": ["<friendUserId>", "<anotherFriendId>"]
+}
+
+
+### 5️⃣ Add Member to Group
+POST http://localhost:5000/api/chat/group/add-member
+Content-Type: application/json
+Authorization: Bearer {{""token""}}
+
+{
+  "chatId": "<groupChatId>",
+  "newMemberId": "<userIdToAdd>"
+}
+
+
+### 6️⃣ Remove Member from Group
+POST http://localhost:5000/api/chat/group/remove-member
+Content-Type: application/json
+Authorization: Bearer {{""token""}}
+
+{
+  "chatId": "<groupChatId>",
+  "memberId": "<userIdToRemove>"
+}
+
+
+### 7️⃣ Get All Chats of User
+GET http://localhost:5000/api/chat
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc0OGM3ZTYxODExYmVjZGM0YmUwOCIsImlhdCI6MTc2MTAzNjUwNCwiZXhwIjoxNzYxNjQxMzA0fQ.GGWq25Uano_nSrBpQ0QB-e4flSf5TnlnwQ09SVEDRac
+
+
+### 8️⃣ Send Message
+POST http://localhost:5000/api/message/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc0OGM3ZTYxODExYmVjZGM0YmUwOCIsImlhdCI6MTc2MTAzNjUwNCwiZXhwIjoxNzYxNjQxMzA0fQ.GGWq25Uano_nSrBpQ0QB-e4flSf5TnlnwQ09SVEDRac
+
+{
+  "chatId": "68f74913e61811becdc4be0e",
+  "text": "Hello, Abhishek kya kar rahe ho!"
+}
+
+
+### 9️⃣ Get All Messages of a Chat
+GET http://localhost:5000/api/message/68f743181c367395536d78fa
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc0MjhiMWMzNjczOTU1MzZkNzhmNCIsImlhdCI6MTc2MTAzNDkxNSwiZXhwIjoxNzYxNjM5NzE1fQ.9I5zRRUbsCJpk2Y8LcMv6ytB8HJNPPm-W_KAqwHGHOc

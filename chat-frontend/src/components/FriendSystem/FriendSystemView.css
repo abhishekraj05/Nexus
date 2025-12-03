@@ -1,0 +1,174 @@
+/* === ROOT VARIABLES: Your site's color palette === */
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f4f7fa;
+  --bg-secondary-hover: #eef2f7;
+  --border-color: #e0e4e8;
+  --text-primary: #1a1d21;
+  --text-secondary: #5a6470;
+  --accent-danger: #d93025;
+  --accent-danger-hover: #b92a20;
+  --accent-danger-bg: #fbebee;
+  --accent-danger-border: #f5c6cb;
+  --status-online: #28a745;
+  --border-radius-main: 12px;
+  --border-radius-inner: 8px;
+  --shadow-light: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-medium: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* === MAIN CONTAINER === */
+.friend-system-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+  max-width: 700px;
+  margin: 2rem auto;
+  background: var(--bg-primary);
+  border-radius: var(--border-radius-main);
+  box-shadow: var(--shadow-medium);
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+}
+
+.friend-system-container h4 {
+  font-size: 1.25rem; /* 20px */
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* === MESSAGE PLACEHOLDER === */
+.system-message {
+  color: var(--text-secondary);
+  font-style: italic;
+  text-align: center;
+  padding: 2rem 0;
+}
+
+/* === FRIENDS LIST === */
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Modern spacing */
+}
+
+/* === INDIVIDUAL FRIEND ITEM === */
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-inner);
+  background: var(--bg-secondary);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-item:hover {
+  background: var(--bg-secondary-hover);
+}
+
+/* === CLICKABLE PROFILE AREA (LEFT) === */
+.user-item-clickable {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  flex-grow: 1; /* Allows it to take available space */
+  min-width: 0; /* Prevents overflow issues with flex */
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0; /* Prevents avatar from shrinking */
+  border: 2px solid var(--border-color);
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Critical for text-overflow to work */
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds "..." if name is too long */
+}
+
+.user-email {
+  font-size: 0.875rem; /* 14px */
+  color: var(--text-secondary);
+}
+
+/* === REMOVE BUTTON (RIGHT) === */
+.reject-btn {
+  background-color: var(--accent-danger-bg);
+  color: var(--accent-danger);
+  border: 1px solid var(--accent-danger-border);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--border-radius-inner);
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevents button from shrinking */
+}
+
+.reject-btn:hover {
+  background-color: var(--accent-danger);
+  color: #ffffff;
+  border-color: var(--accent-danger-hover);
+}
+
+/* === RESPONSIVENESS === */
+@media (max-width: 600px) {
+  .friend-system-container {
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    padding: 1rem;
+  }
+
+  .user-item {
+    padding: 0.5rem;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-name {
+    font-size: 0.9rem;
+  }
+
+  .reject-btn {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.8rem;
+  }
+}
+
+
+
+.user-status {
+  font-size: 0.875rem; /* 14px */
+}
+
+.user-status.online {
+  color: var(--status-online);
+  font-weight: 500;
+}
+
+.user-status.offline {
+  color: var(--text-secondary);
+}

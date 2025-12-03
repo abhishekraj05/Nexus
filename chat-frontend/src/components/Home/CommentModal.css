@@ -1,0 +1,475 @@
+/* Background dhundhla karne ke liye */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+/* Main Dabba */
+.modal-content {
+    background-color: #18181b; /* Dark Card Color */
+    width: 90%;
+    max-width: 500px;
+    height: 80vh; /* Screen ka 80% height */
+    border-radius: 12px;
+    border: 1px solid #3f3f46;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Header */
+.modal-header {
+    padding: 15px;
+    border-bottom: 1px solid #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: #a1a1aa;
+    cursor: pointer;
+}
+
+/* List Area */
+.comments-list {
+    flex: 1; /* Baaki jagah gher lo */
+    overflow-y: auto; /* Scrollable banao */
+    padding: 15px;
+}
+
+/* Single Comment Item */
+.comment-item {
+    display: flex;
+    margin-bottom: 15px;
+}
+
+.comment-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.comment-bubble {
+    background-color: #27272a;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border-top-left-radius: 2px;
+    max-width: 85%;
+}
+
+.comment-username {
+    font-weight: bold;
+    color: white;
+    font-size: 13px;
+    display: block;
+    margin-bottom: 2px;
+}
+
+.comment-text {
+    color: #e4e4e7;
+    font-size: 14px;
+    margin: 0;
+}
+
+.no-comments, .loading-text {
+    text-align: center;
+    color: #a1a1aa;
+    margin-top: 20px;
+}
+
+/* Input Area (Bottom Fixed) */
+.comment-input-box {
+    padding: 15px;
+    border-top: 1px solid #3f3f46;
+    display: flex;
+    gap: 10px;
+    background-color: #18181b;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}
+
+.comment-input-box input {
+    flex: 1;
+    background-color: #27272a;
+    border: 1px solid #3f3f46;
+    padding: 10px;
+    border-radius: 20px;
+    color: white;
+    outline: none;
+}
+
+.comment-input-box button {
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comment-input-box button:disabled {
+    background-color: #3f3f46;
+    color: #71717a;
+    cursor: not-allowed;
+}
+
+
+/* ... Purana CSS Same rahega, bas ye naya add/update karein ... */
+
+.comment-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+}
+
+.comment-bubble {
+    background-color: #27272a;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border-top-left-radius: 2px;
+    position: relative;
+}
+
+/* --- New Edit/Delete Button Styles --- */
+.comment-actions-mini {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.action-mini-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.action-mini-btn:hover {
+    opacity: 1;
+}
+
+.action-mini-btn.edit {
+    color: #3b82f6; /* Blue */
+}
+
+.action-mini-btn.delete {
+    color: #ef4444; /* Red */
+}
+
+/* --- Edit Mode Styles --- */
+.edit-input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 200px;
+}
+
+.edit-comment-input {
+    flex: 1;
+    background-color: #18181b;
+    border: 1px solid #3f3f46;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+}
+
+.save-btn, .cancel-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.save-btn {
+    color: #22c55e; /* Green */
+    background-color: rgba(34, 197, 94, 0.1);
+}
+
+.cancel-btn {
+    color: #ef4444; /* Red */
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+
+/* ... Purana CSS Same rahega, bas ye naya add/update karein ... */
+
+.comment-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 85%;
+}
+
+.comment-bubble {
+    background-color: #27272a;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border-top-left-radius: 2px;
+    position: relative;
+}
+
+/* --- New Edit/Delete Button Styles --- */
+.comment-actions-mini {
+    display: flex;
+    gap: 8px;
+    margin-top: 4px;
+    margin-left: 5px;
+}
+
+.action-mini-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 2px;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.action-mini-btn:hover {
+    opacity: 1;
+}
+
+.action-mini-btn.edit {
+    color: #3b82f6; /* Blue */
+}
+
+.action-mini-btn.delete {
+    color: #ef4444; /* Red */
+}
+
+/* --- Edit Mode Styles --- */
+.edit-input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    min-width: 200px;
+}
+
+.edit-comment-input {
+    flex: 1;
+    background-color: #18181b;
+    border: 1px solid #3f3f46;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    outline: none;
+}
+
+.save-btn, .cancel-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    border-radius: 50%;
+}
+
+.save-btn {
+    color: #22c55e; /* Green */
+    background-color: rgba(34, 197, 94, 0.1);
+}
+
+.cancel-btn {
+    color: #ef4444; /* Red */
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* ... Purana CSS same rakhein ... */
+
+.comment-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    max-width: 90%;
+    position: relative; /* Dropdown positioning ke liye zaroori */
+}
+
+.comment-bubble {
+    background-color: #27272a;
+    padding: 8px 12px;
+    border-radius: 12px;
+    border-top-left-radius: 2px;
+    min-width: 150px;
+}
+
+/* --- Three Dot Menu Styles --- */
+.menu-container {
+    position: relative;
+    align-self: center; /* Center vertically */
+}
+
+.three-dot-btn {
+    background: none;
+    border: none;
+    color: #a1a1aa;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.three-dot-btn:hover {
+    background-color: #3f3f46;
+    color: white;
+}
+
+/* --- Dropdown Popup --- */
+.dropdown-menu {
+    position: absolute;
+    top: 25px; /* Icon ke niche */
+    right: 0;
+    background-color: #18181b;
+    border: 1px solid #3f3f46;
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    z-index: 10;
+    min-width: 100px;
+    overflow: hidden;
+}
+
+.dropdown-item {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #e4e4e7;
+    padding: 8px 12px;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+}
+
+.dropdown-item:hover {
+    background-color: #27272a;
+}
+
+.dropdown-item.delete {
+    color: #ef4444; /* Red color for delete */
+}
+
+.dropdown-item.delete:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* --- Edit Mode Styles --- */
+.edit-input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.edit-comment-input {
+    background-color: #000;
+    border: 1px solid #3f3f46;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    outline: none;
+    width: 100%;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+}
+
+.icon-btn.save { color: #22c55e; }
+.icon-btn.cancel { color: #ef4444; }
+
+
+
+/* ... Purana CSS same rakhein ... */
+
+/* --- Footer Container --- */
+/* Isko naya banaya taaki input aur 'Editing...' bar saath rahein */
+.footer-container {
+    background-color: #18181b;
+    border-top: 1px solid #3f3f46;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- Editing Indicator Bar --- */
+.editing-indicator {
+    background-color: #27272a;
+    padding: 5px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #3b82f6; /* Blue Text */
+    font-size: 12px;
+    border-bottom: 1px solid #3f3f46;
+    animation: slideUp 0.2s ease-out;
+}
+
+.cancel-edit-btn {
+    background: none;
+    border: none;
+    color: #a1a1aa;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.cancel-edit-btn:hover {
+    color: white;
+}
+
+/* --- Input Box Modifications --- */
+.comment-input-box {
+    border-top: none; /* Border ab footer-container pe hai */
+    padding: 15px;
+}
+
+/* Highlight edited comment in list (Optional) */
+.editing-highlight .comment-bubble {
+    border: 1px solid #3b82f6; /* Blue border around bubble being edited */
+}
+
+/* Update Button Color */
+.update-btn {
+    background-color: #22c55e !important; /* Green for update */
+}
+
+@keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

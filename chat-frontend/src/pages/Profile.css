@@ -1,0 +1,259 @@
+/* --- MAIN CONTAINER --- */
+.profile-container {
+    max-width: 935px; /* Instagram Standard Width */
+    margin: 0 auto;
+    padding: 30px 20px;
+    color: #fff;
+    background-color: #000;
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- PROFILE HEADER --- */
+.profile-header {
+    display: flex;
+    align-items: flex-start; /* Top align */
+    gap: 80px; /* Space between image and text */
+    margin-bottom: 44px;
+    padding: 0 20px;
+}
+
+.profile-pic-wrapper {
+    flex-shrink: 0;
+}
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid #3f3f46; /* Subtle border */
+    cursor: pointer;
+}
+
+.profile-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Name & Edit Button Row */
+.profile-name-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.username {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.edit-profile-btn {
+    background-color: #363636;
+    color: #fff;
+    border: none;
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.edit-profile-btn:hover {
+    background-color: #262626;
+}
+
+.settings-icon {
+    cursor: pointer;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.settings-icon:active {
+    transform: rotate(30deg);
+}
+
+/* Stats Row */
+.profile-stats {
+    display: flex;
+    gap: 40px;
+    font-size: 16px;
+}
+
+.profile-stats span strong {
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Bio Section */
+.profile-bio {
+    font-size: 14px;
+    line-height: 1.5;
+    white-space: pre-wrap; /* Line breaks preserve karega */
+}
+
+/* --- TABS SECTION --- */
+.profile-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    border-top: 1px solid #262626;
+    margin-bottom: 10px;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-top: 15px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: #8e8e8e;
+    cursor: pointer;
+    border-top: 1px solid transparent;
+    margin-top: -1px; /* Align border with line */
+    transition: color 0.2s;
+}
+
+.tab.active {
+    color: #fff;
+    border-top: 1px solid #fff;
+}
+
+.tab svg {
+    font-size: 14px;
+}
+
+/* --- POSTS GRID --- */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Columns fix */
+    gap: 4px; /* Instagram jaisa chhota gap */
+}
+
+.grid-item {
+    position: relative;
+    aspect-ratio: 1 / 1; /* Square Box banayega */
+    background-color: #121212;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.grid-media {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.2s;
+}
+
+/* Hover Overlay (Likes/Comments) */
+.grid-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.2s ease-in-out;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    pointer-events: none; /* Mouse clicks pass through to parent */
+}
+
+.grid-item:hover .grid-overlay {
+    opacity: 1; /* Show on hover */
+}
+
+/* No Posts Message */
+.no-posts {
+    grid-column: 1 / -1; /* Poori width lega */
+    text-align: center;
+    padding: 60px 0;
+    color: #fff;
+}
+
+.no-posts h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.no-posts p {
+    color: #8e8e8e;
+}
+
+/* Loading Screen */
+.loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-size: 18px;
+}
+
+/* --- RESPONSIVE DESIGN (Mobile) --- */
+@media (max-width: 768px) {
+    .profile-header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .profile-pic-wrapper {
+        align-self: center;
+        margin-bottom: 10px;
+    }
+
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-name-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .profile-stats {
+        justify-content: space-around;
+        width: 100%;
+        border-top: 1px solid #262626;
+        border-bottom: 1px solid #262626;
+        padding: 10px 0;
+    }
+
+    .profile-stats span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 14px;
+    }
+
+    .posts-grid {
+        gap: 2px;
+    }
+}
+
+
+.modal-overlay {
+    position: fixed; /* YE ZAROORI HAI */
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000; /* Profile Page se upar */
+}

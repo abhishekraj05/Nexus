@@ -1,0 +1,166 @@
+.friend-system-container {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.search-form {
+  display: flex;
+  margin-bottom: 15px;
+}
+.search-form input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px 0 0 5px;
+}
+.search-form button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #00a884;
+  color: white;
+  cursor: pointer;
+  border-radius: 0 5px 5px 0;
+}
+.user-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.user-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+.user-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.user-name {
+  font-weight: bold;
+}
+.user-email {
+  font-size: 0.8rem;
+  color: #54656f;
+}
+.add-btn, .accept-btn, .reject-btn {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+.add-btn { background-color: #007bff; }
+.add-btn:disabled { background-color: #aaa; }
+.accept-btn { background-color: #28a745; }
+.reject-btn { background-color: #dc3545; }
+.request-buttons {
+  display: flex;
+  gap: 5px;
+}
+.system-message {
+  text-align: center;
+  color: #54656f;
+}
+
+
+
+
+
+/* ... (aapka purana user-item, add-btn, wagairah ka CSS) ... */
+
+
+/* --- NAYA CLICKABLE AREA --- */
+/* Yeh 'FriendsList.jsx' mein photo aur naam ko wrap karta hai */
+.user-item-clickable {
+  flex: 1; /* Taaki yeh poori bachi hui jagah le */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 5px; /* Thodi padding taaki click area accha ho */
+  transition: background-color 0.2s ease;
+}
+.user-item-clickable:hover {
+  background-color: #f0f0f0;
+}
+
+
+/* --- NAYI MODAL STYLING --- */
+
+.modal-backdrop {
+  position: fixed; /* Poori screen par fail jaaye */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Halki kaali transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Sabse upar dikhe */
+}
+
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative; /* Close button ke liye */
+  animation: slideInModal 0.3s ease-out;
+}
+
+/* Modal ke aane ka animation */
+@keyframes slideInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: #aaa;
+  cursor: pointer;
+}
+
+.modal-avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  border: 3px solid #f0f0f0;
+}
+
+.modal-name {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.modal-email {
+  margin: 5px 0 15px 0;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+.modal-bio {
+  font-style: italic;
+  color: #555;
+}

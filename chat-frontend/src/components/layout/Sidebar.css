@@ -1,0 +1,39 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  max-width: 400px;
+  height: 100vh;
+  border-right: 1px solid #ddd;
+}
+.sidebar-header {
+  padding: 10px 15px;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.sidebar-nav {
+  display: flex;
+  gap: 10px;
+}
+.sidebar-nav button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: #54656f;
+  cursor: pointer;
+  padding: 5px;
+}
+.sidebar-nav button.active {
+  font-weight: bold;
+  color: #00a884;
+  border-bottom: 2px solid #00a884;
+}
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+}
+
+
+

@@ -1,0 +1,186 @@
+/* Modal Overlay (Background) */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+/* Modal Card */
+.edit-modal-content {
+    background-color: #18181b;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh; /* Screen se bada na ho */
+    border-radius: 12px;
+    border: 1px solid #3f3f46;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 15px 20px;
+    border-bottom: 1px solid #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+}
+
+.scrollable-body {
+    padding: 20px;
+    overflow-y: auto; /* Scroll allow karo agar form lamba hai */
+}
+
+/* Form Elements Styling */
+.profile-form {
+    display: flex; flex-direction: column; gap: 12px;
+}
+
+.profile-form label {
+    color: #a1a1aa; font-size: 14px;
+}
+
+.profile-form input, 
+.profile-form textarea {
+    background-color: #27272a;
+    border: 1px solid #3f3f46;
+    padding: 10px;
+    border-radius: 6px;
+    color: white;
+    outline: none;
+}
+
+.disabled-input { opacity: 0.6; cursor: not-allowed; }
+
+.profile-avatar-preview {
+    width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid #3f3f46;
+}
+
+/* Buttons */
+.profile-btn {
+    padding: 12px; border-radius: 6px; border: none; font-weight: bold; cursor: pointer; margin-top: 10px;
+}
+
+.update-btn { background-color: #3b82f6; color: white; }
+.delete-btn { background-color: #ef4444; color: white; }
+
+.profile-success { color: #22c55e; text-align: center; font-size: 14px; }
+.profile-error { color: #ef4444; text-align: center; font-size: 14px; }
+
+.profile-divider { border: 0; border-top: 1px solid #3f3f46; margin: 20px 0; }
+
+
+
+/* src/components/Profile/EditProfileModal.css */
+
+.modal-overlay {
+    /* 👇 Ye sabse zaroori line hai: 'absolute' nahi 'fixed' hona chahiye */
+    position: fixed; 
+    
+    /* Screen ke chaaron kono par chipak jaye */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Poori Screen Width */
+    height: 100vh; /* Poori Screen Height */
+    
+    /* Beech mein laane ke liye (Center Alignment) */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    /* Background dhundhla karne ke liye */
+    background-color: rgba(0, 0, 0, 0.85); 
+    /* backdrop-filter: blur(5px);  */
+    
+    /* Sabse upar dikhane ke liye */
+    z-index: 9999; 
+}
+
+/* Modal Dabba (Card) */
+.edit-modal-content {
+    background-color: #18181b;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh; /* Agar screen choti hai to scroll aayega */
+    border-radius: 12px;
+    border: 1px solid #3f3f46;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Shadow taaki utha hua lage */
+    
+    /* Animation (Optional - Smooth Zoom In) */
+    animation: zoomIn 0.2s ease-out;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+
+
+/* ... purana CSS ... */
+
+/* --- LEFT SIDE: MEDIA SECTION ADJUSTMENT --- */
+.post-media-section {
+    /* Position relative zaroori hai taaki overlay iske andar rahe */
+    position: relative; 
+    flex: 1.5;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #3f3f46;
+    overflow: hidden; /* Taaki rounded corners agar ho to bahar na nikle */
+}
+
+/* --- EDIT MEDIA OVERLAY --- */
+.edit-media-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.6); /* Dark transparent overlay */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    z-index: 10; /* Media ke upar */
+    backdrop-filter: blur(3px);
+}
+
+.change-media-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.change-media-btn:hover {
+    background-color: #2563eb;
+}
+
+.reset-media-btn {
+    background: transparent;
+    border: 2px solid #ef4444;
+    color: #ef4444;
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+}
+.reset-media-btn:hover {
+    background: #ef4444;
+    color: white;
+}

@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f0f2f5; /* WhatsApp ka outer background grey */
+}
+
+
+
+
+
+/* Yeh parent hai jo messages ko align karega */
+.message-area {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+
+
+

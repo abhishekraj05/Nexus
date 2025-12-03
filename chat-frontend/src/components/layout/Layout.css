@@ -1,0 +1,119 @@
+/* src/components/Layout/Layout.css */
+
+/* --- Main 3-Column Layout --- */
+.chat-page-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* 1. Left Sidebar (Icons) */
+.left-sidebar {
+    width: 80px;
+    height: 100%;
+    background-color: #f0f2f5;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    flex-shrink: 0;
+}
+
+.sidebar-top-icons, .sidebar-bottom-icons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.sidebar-icon {
+    background: none;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem; /* Icon size */
+    color: #54656f;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.sidebar-icon:hover {
+    background-color: #e0e0e0;
+}
+
+.sidebar-icon.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.profile-avatar {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    padding: 0;
+}
+.profile-avatar:hover {
+    opacity: 0.9;
+}
+.profile-avatar.active {
+    box-shadow: 0 0 0 3px #007bff;
+}
+
+/* 2. Main Content (Chat List / Friend List) */
+.main-content {
+    width: 350px;
+    height: 100%;
+    border-right: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    background-color: #ffffff;
+    flex-shrink: 0;
+}
+
+.sidebar-search {
+    padding: 10px 16px;
+    background-color: #f9f9f9;
+    border-bottom: 1px solid #eee;
+}
+.sidebar-search input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
+.sidebar-search input:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.main-content-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+/* 3. Chat Window Wrapper */
+.chat-window-wrapper {
+    flex: 1; /* Bachi hui poori jagah le lega */
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.welcome-screen {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f2f5;
+    height: 100%;
+    color: #54656f;
+    font-size: 1.2rem;
+}

@@ -1,0 +1,161 @@
+/* Overlay wahi purana wala use hoga, bas z-index high rakhna */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4000; /* Profile Edit se bhi upar */
+}
+
+/* Main Card (Split View) */
+.single-post-card {
+    background-color: #000;
+    display: flex;
+    width: 90%;
+    max-width: 900px;
+    height: 80vh; /* Fixed Height */
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid #3f3f46;
+}
+
+/* Left Side (Media) */
+.post-media-section {
+    flex: 1.5; /* 60% width */
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #3f3f46;
+}
+
+.full-media {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Poori photo dikhegi bina kate */
+}
+
+/* Right Side (Details) */
+.post-details-section {
+    flex: 1; /* 40% width */
+    display: flex;
+    flex-direction: column;
+    background-color: #000;
+    color: white;
+}
+
+/* Header */
+.post-card-header {
+    padding: 15px;
+    border-bottom: 1px solid #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-info { display: flex; align-items: center; gap: 10px; }
+.header-avatar { width: 32px; height: 32px; border-radius: 50%; }
+.header-username { font-weight: bold; font-size: 14px; }
+
+/* Menu */
+.menu-btn { background: none; border: none; color: white; cursor: pointer; }
+.menu-wrapper { position: relative; }
+
+.post-options-dropdown {
+    position: absolute;
+    right: 0; top: 30px;
+    background: #262626;
+    border-radius: 8px;
+    width: 120px;
+    z-index: 10;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.post-options-dropdown button {
+    display: flex; align-items: center; gap: 8px;
+    width: 100%; padding: 10px;
+    background: none; border: none; color: white;
+    cursor: pointer; text-align: left; font-size: 14px;
+}
+
+.post-options-dropdown button:hover { background-color: #3f3f46; }
+.delete-option { color: #ef4444 !important; }
+
+/* Caption Area */
+.post-caption-area {
+    flex: 1; /* Baaki jagah gher lo */
+    padding: 15px;
+    overflow-y: auto;
+    border-bottom: 1px solid #3f3f46;
+}
+
+.bold-name { font-weight: bold; margin-right: 5px; }
+.caption-text { font-size: 14px; line-height: 1.5; }
+
+/* Edit Box */
+.edit-box textarea {
+    width: 100%; background: #262626; color: white; border: none; padding: 10px; border-radius: 4px;
+}
+.edit-actions { display: flex; gap: 10px; margin-top: 10px; }
+.save-btn { background: #3b82f6; color: white; border: none; padding: 5px 15px; border-radius: 4px; cursor: pointer; }
+.cancel-btn { background: transparent; color: #a1a1aa; border: none; cursor: pointer; }
+
+/* Footer */
+.post-card-footer { padding: 15px; }
+.post-date { font-size: 12px; color: #a1a1aa; display: block; margin-top: 5px; }
+
+/* Close Button Outside */
+.absolute-close-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: none; border: none; cursor: pointer;
+    z-index: 5000;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+    .single-post-card { flex-direction: column; height: 90vh; overflow-y: auto; }
+    .post-media-section { height: 50%; border-right: none; border-bottom: 1px solid #3f3f46; }
+}
+
+
+/* --- CLOSE BUTTON (FIXED ON SCREEN) --- */
+.absolute-close-btn {
+    position: fixed; /* Card se bahar nikal kar screen pe fix karo */
+    top: 20px;
+    right: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 5001; /* Sabse upar */
+    
+    /* Thoda bada aur saaf dikhe */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border-radius: 50%;
+    transition: background 0.2s;
+}
+
+.absolute-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Hover pe halka background */
+}
+
+.absolute-close-btn svg {
+    width: 32px; /* Icon size badha diya */
+    height: 32px;
+    color: #ffffff;
+}
+
+/* --- ADJUST HEADER PADDING (Optional) --- */
+/* Agar abhi bhi lag raha hai ki Three dots chipak rahe hain */
+.post-card-header {
+    padding: 15px 20px; /* Thoda spacing badha do */
+    border-bottom: 1px solid #3f3f46;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

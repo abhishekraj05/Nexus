@@ -1,0 +1,464 @@
+
+/* Reels.css */
+.reels-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #000; /* Dark Theme */
+  min-height: 100vh;
+  color: white;
+  padding-bottom: 60px;
+}
+
+/* Tabs Header */
+.reels-tabs {
+  display: flex;
+  justify-content: space-around;
+  padding: 15px;
+  background: #111;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  padding-bottom: 5px;
+}
+
+.tab-btn.active {
+  color: white;
+  border-bottom: 2px solid #e91e63; /* Pink Highlight */
+}
+
+/* Video Card */
+.reel-card {
+  position: relative;
+  margin-bottom: 20px;
+  background: #1a1a1a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.reel-video {
+  width: 100%;
+  height: 500px; /* Portrait Height */
+  object-fit: contain; /* Pura video dikhega */
+  background: black;
+}
+
+.reel-info {
+  padding: 10px;
+}
+
+.reel-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.author-img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid white;
+}
+
+.privacy-badge {
+  font-size: 10px;
+  background: #333;
+  padding: 2px 5px;
+  border-radius: 4px;
+  margin-left: auto;
+}
+
+/* Upload Form */
+.upload-section {
+  padding: 20px;
+  background: #222;
+  margin: 20px;
+  border-radius: 10px;
+}
+
+.upload-input, .upload-select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  background: #333;
+  border: 1px solid #444;
+  color: white;
+  border-radius: 5px;
+}
+
+.upload-btn {
+  width: 100%;
+  padding: 12px;
+  background: #e91e63;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Purana code rehne dena, ye neeche add karo */
+
+.loading-text {
+  text-align: center;
+  padding: 20px;
+  color: #888;
+}
+
+/* Action Buttons (Edit/Delete) */
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  border-top: 1px solid #333;
+  padding-top: 10px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn {
+  background: #2196F3;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: #f44336;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Edit Box */
+.edit-box {
+  margin-top: 10px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.mini-select {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.save-btn {
+  background: #4CAF50;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.cancel-btn {
+  background: #777;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+/* Privacy Badge Colors */
+.badge-public { background-color: #4CAF50; }
+.badge-private { background-color: #FF9800; }
+.badge-only_me { background-color: #F44336; }
+
+
+
+
+/* Container for Full Screen Scroll */
+.reels-app-container {
+  background-color: black;
+  height: 100vh; /* Pura screen */
+  width: 100%;
+  max-width: 480px; /* Mobile width limit */
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Header Tabs (Floating on top) */
+.reels-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 15px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
+}
+
+.tab-link {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-shadow: 1px 1px 2px black;
+}
+
+.tab-link.active {
+  color: white;
+  border-bottom: 2px solid white;
+}
+
+/* SCROLL CONTAINER (Snap Effect) */
+.reels-feed-container {
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory; /* Yahi magic hai snap ka */
+  scrollbar-width: none; /* Scrollbar chupao */
+}
+
+.reels-feed-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* SINGLE REEL ITEM */
+.single-reel {
+  position: relative;
+  height: 100%; /* Pura viewport */
+  width: 100%;
+  background-color: #111;
+  scroll-snap-align: start; /* Snap point */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Video Styling */
+.video-player {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Pura screen bharega bina kaale border ke */
+  cursor: pointer;
+}
+
+/* OVERLAY: Bottom Info (Name, Caption) */
+.reel-overlay-info {
+  position: absolute;
+  bottom: 20px;
+  left: 10px;
+  width: 80%;
+  color: white;
+  z-index: 10;
+  text-shadow: 1px 1px 2px black;
+}
+
+.user-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.user-avatar {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid white;
+}
+
+.username {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.caption-text {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-top: 5px;
+}
+
+/* OVERLAY: Right Actions (Like, Delete) */
+.reel-right-actions {
+  position: absolute;
+  bottom: 40px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  z-index: 10;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 28px; /* Bada Icon */
+  cursor: pointer;
+  text-shadow: 1px 1px 2px black;
+}
+
+.action-text {
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+/* Upload Section (Simple styling) */
+.upload-wrapper {
+  padding-top: 80px; /* Header ke liye jagah */
+  color: white;
+  padding: 20px;
+}
+.upload-input { width: 100%; padding: 10px; margin-bottom: 10px; background: #333; color: white; border: none; }
+.upload-btn { width: 100%; padding: 10px; background: #e91e63; color: white; border: none; font-weight: bold; }
+
+
+
+/* User Name aur Photo ka Container */
+.user-details {
+  display: flex;
+  align-items: center; /* Icon aur text ko vertically center karega */
+  justify-content: flex-start; /* Left side chipka ke rakhega */
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+/* User Icon (Photo) */
+.user-avatar {
+  width: 40px;        /* Thoda standard size */
+  height: 40px;       /* Width aur Height same honi chahiye */
+  border-radius: 50%; /* Gol karne ke liye */
+  border: 2px solid white;
+  
+  /* 🔥 YE DO LINE IMPORTANT HAIN 🔥 */
+  object-fit: cover;  /* Photo ko stretch hone se rokega */
+  flex-shrink: 0;     /* Photo ko pichakne se rokega */
+  
+  background-color: #333; /* Agar photo na ho to background grey */
+}
+
+
+/* --- EDIT MODE STYLES --- */
+.edit-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.edit-text-input {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  padding: 5px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.edit-select-input {
+  background: #333;
+  color: white;
+  border: 1px solid #555;
+  padding: 5px;
+  border-radius: 4px;
+}
+
+.edit-btn-row {
+  display: flex;
+  gap: 10px;
+}
+
+.small-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-btn { background: #4CAF50; color: white; }
+.cancel-btn { background: #f44336; color: white; }
+
+
+
+/* --- OVERLAY INFO (Bottom Left) --- */
+.reel-overlay-info {
+  position: absolute;
+  bottom: 20px;       /* Bottom se thoda upar */
+  left: 15px;         /* Left se gap */
+  width: 75%;         /* Width limit taaki like button ke upar na chade */
+  z-index: 20;
+  text-align: left;   /* 🔥 IMPORTANT: Sab kuch left align */
+  display: flex;
+  flex-direction: column; /* Caption niche aayega */
+  justify-content: flex-end;
+}
+
+/* --- USER ROW (Avatar + Name) --- */
+.user-details {
+  display: flex;
+  flex-direction: row; /* 🔥 IMPORTANT: Icon aur Naam agal-bagal */
+  align-items: center; /* Center line mein */
+  justify-content: flex-start; /* Left chipka hua */
+  gap: 10px;           /* Beech mein gap */
+  margin-bottom: 8px;  /* Caption se thoda gap */
+}
+
+/* --- AVATAR (Gol Photo) --- */
+.user-avatar {
+  width: 35px;        /* Insta standard size */
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid white; /* Border taaki dark video pe dikhe */
+  object-fit: cover;
+  flex-shrink: 0;     /* Pichke nahi */
+}
+
+/* --- TEXT STYLES --- */
+.username {
+  color: white;
+  font-weight: 700;   /* Bold */
+  font-size: 15px;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Shadow taaki padhne me aaye */
+}
+
+.caption-text {
+  color: #f0f0f0;
+  font-size: 14px;
+  line-height: 1.4;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 2 line se zyada ho to ... dikhaye */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

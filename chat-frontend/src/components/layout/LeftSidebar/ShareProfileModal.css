@@ -1,0 +1,144 @@
+/* Overlay (Background Dim) */
+.share-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85); /* Dark background */
+  /* backdrop-filter: blur(8px);  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Main Card */
+.share-card {
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+  width: 320px;
+  border-radius: 20px;
+  padding: 30px 20px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  border: 1px solid #333;
+}
+
+/* Close Button */
+.share-close-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.share-close-btn:hover { background: rgba(255,255,255,0.2); }
+
+/* Avatar Styling */
+.avatar-glow {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  padding: 3px;
+  /* Insta-like Gradient Border */
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.share-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid #1e1e1e;
+  object-fit: cover;
+  background-color: #000;
+}
+
+/* Text Styling */
+.share-name {
+  margin: 0;
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.share-bio {
+  margin: 5px 0 20px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* QR Box */
+.qr-box {
+  background: #1e1e1e;
+  padding: 10px;
+  border-radius: 12px;
+  display: inline-block;
+  margin-bottom: 15px;
+  border: 1px solid #333;
+}
+
+.qr-box img {
+  width: 140px;
+  height: 140px;
+  display: block;
+  border-radius: 8px;
+}
+
+.scan-text {
+  color: #666;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Buttons */
+.share-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.copy-btn, .native-share-btn {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  transition: 0.2s;
+}
+
+.copy-btn {
+  background: #333;
+  color: white;
+}
+.copy-btn:hover { background: #444; }
+
+.native-share-btn {
+  background: #e91e63;
+  color: white;
+}
+.native-share-btn:hover { background: #c2185b; }
+
+/* Animation */
+@keyframes popIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
