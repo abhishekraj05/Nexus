@@ -287,7 +287,7 @@
 
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import logoImg from "../../../assets/bubbly.jpeg";
+import logoImg from "../../../assets/logo.png";
 import {
     HomeIcon,
     SearchIcon,
@@ -343,7 +343,7 @@ export default function LeftSidebar({ onCreateClick }) {
         <nav className="left-sidebar">
             <div style={{display: "flex",alignItems: "center",gap: "8px"}} className="logo-container">
                 <img style={{ width: "45px", height: "45px", borderRadius: "50%", background: "#fff", padding: "4px", objectFit: "contain", }} src={logoImg}  alt="Bubbly Logo"  className="logo-image" />
-                <h1 style={{fontSize:"30px", marginTop: "15px" , margin: 0, lineHeight: 1}} className="logo-full">𝓑𝓾𝓫𝓫𝓵𝔂</h1>
+                <h1 style={{fontSize:"30px", marginTop: "15px" , margin: 0, lineHeight: 1}} className="logo-full">Nexus</h1>
             </div>
 
             <ul className="nav-list">

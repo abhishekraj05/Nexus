@@ -489,6 +489,7 @@ const ChatBox = ({ chat, socket, onlineStatuses }) => {
     const [contextMenu, setContextMenu] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [canDeleteForEveryone, setCanDeleteForEveryone] = useState(false);
+    const [showCallPopup, setShowCallPopup] = useState(false);
     // --- Refs for listeners ---
     const messageListenerRef = useRef(null);
     const statusUpdateListenerRef = useRef(null);
@@ -927,7 +928,12 @@ const ChatBox = ({ chat, socket, onlineStatuses }) => {
                             </span>
                         </div>
                          <div className="chat-header-icons"> 
-                            <span>📞</span> 
+                            <span 
+                                onClick={() => setShowCallPopup(true)} 
+                                style={{ cursor: 'pointer', fontSize: '24px' }}
+                            >
+                                📞
+                            </span>
                             <span onClick={() => setHeaderMenuOpen(prev => !prev)}>⋮</span>
                             {headerMenuOpen && (
                                 <div className="header-menu" onMouseLeave={() => setHeaderMenuOpen(false)}>
@@ -968,6 +974,7 @@ const ChatBox = ({ chat, socket, onlineStatuses }) => {
                                 )}
                                 <div
                                     className={`message-bubble ${isDeleted ? 'deleted' : ''} ${isSelected ? 'selected-bubble' : ''}`}
+                                    style={{  color:'#000000' }}
                                     // Double tap aur context menu abhi bhi deleted messages par disabled rahenge (jo sahi hai)
                                     onDoubleClick={(e) => !isInSelectionMode && !isDeleted && handleDoubleTap(e, msg._id)}
                                     onContextMenu={(e) => !isInSelectionMode && !isDeleted && isSender && handleContextMenu(e, msg)}
@@ -1068,6 +1075,46 @@ const ChatBox = ({ chat, socket, onlineStatuses }) => {
 
             {/* Profile Modal */}
             {selectedProfile && ( <UserProfileModal user={selectedProfile} onClose={handleCloseModal} /> )}
+
+
+            {/* --- INLINE POPUP --- */}
+            {showCallPopup && (
+                <div 
+                    style={{
+                        position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
+                        background: 'rgba(0,0,0,0.7)', zIndex: 9999,
+                        display: 'flex', justifyContent: 'center', alignItems: 'center',
+                        backdropFilter: 'blur(5px)'
+                    }}
+                    onClick={() => setShowCallPopup(false)} // Background click se band
+                >
+                    <div 
+                        style={{
+                            background: '#18181b', padding: '30px', borderRadius: '15px',
+                            textAlign: 'center', border: '1px solid #333', maxWidth: '300px',
+                            color: 'white', boxShadow: '0 10px 30px rgba(0,0,0,0.5)'
+                        }}
+                        onClick={(e) => e.stopPropagation()} // Card click se band na ho
+                    >
+                        <div style={{ fontSize: '50px', marginBottom: '15px' }}>😊</div>
+                        <h3 style={{ margin: '0 0 10px 0' }}>Coming Soon!</h3>
+                        <p style={{ color: '#aaa', fontSize: '14px', marginBottom: '20px' }}>
+                            Voice & Video calls are currently under development.
+                        </p>
+                        <button 
+                            onClick={() => setShowCallPopup(false)}
+                            style={{
+                                background: '#e91e63', color: 'white', border: 'none',
+                                padding: '10px 20px', borderRadius: '8px', cursor: 'pointer', fontWeight: 'bold'
+                            }}
+                        >
+                            Okay
+                        </button>
+                    </div>
+                </div>
+            )}
+
+
         </div>
     );
 };

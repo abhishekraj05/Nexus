@@ -1,0 +1,849 @@
+/* =========================================
+   1. GLOBAL VARIABLES & RESET
+   ========================================= */
+:root {
+    --nexus-black: #050505;
+    --nexus-dark: #0a0a0a;
+    --nexus-purple: #8b5cf6;
+    --nexus-blue: #3b82f6;
+    --nexus-pink: #ec4899;
+    --text-main: #ffffff;
+    --text-muted: #a3a3a3;
+    --glass-bg: rgba(20, 20, 20, 0.6);
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--nexus-black);
+    color: var(--text-main);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    overflow-x: hidden; /* Horizontal scroll rokne ke liye */
+}
+
+/* Page Wrapper */
+.landing-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Page Content Padding (Navbar ke peeche na chupe) */
+.page-content {
+    padding-top: 80px;
+    flex: 1; /* Footer ko bottom push karne ke liye */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Content vertically center */
+}
+
+/* Gradient Text Utility */
+.gradient-text {
+    background: linear-gradient(to right, var(--nexus-purple), var(--nexus-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+/* =========================================
+   2. ANIMATIONS (KEYFRAMES)
+   ========================================= */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes glowPulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 0.4; }
+}
+
+/* Animation Classes */
+.fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+.delay-3 { animation-delay: 0.6s; }
+
+/* =========================================
+   3. NAVBAR STYLES
+   ========================================= */
+.glass-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(5, 5, 5, 0.7);
+    backdrop-filter: blur(12px); 
+    border-bottom: 1px solid var(--glass-border);
+    position: fixed;
+    top: 0; width: 100%;
+    z-index: 1000;
+    gap: 20px;
+}
+
+.logo-container {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 24px; font-weight: 800; cursor: pointer;
+    letter-spacing: -0.5px;
+}
+.logo-icon { color: var(--nexus-purple); font-size: 28px; }
+
+.nav-links-center {
+    display: flex; 
+    gap: 30px;
+    align-items: center;
+    margin-right: auto; 
+    margin-left: 50px;
+}
+
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    font-size: 15px;
+}
+.nav-link:hover { color: var(--text-main); }
+
+.nav-actions { display: flex; align-items: center; gap: 15px; }
+
+.nav-login-link {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: 600;
+    margin-right: 10px;
+    transition: opacity 0.3s;
+}
+.nav-login-link:hover { opacity: 0.8; }
+
+.nav-signup-btn {
+    padding: 10px 24px;
+    border-radius: 50px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.nav-signup-btn:hover { background: white; color: black; transform: translateY(-2px); }
+
+/* Special Glow Button (For 'Open App') */
+.glow-btn {
+    background: linear-gradient(135deg, var(--nexus-purple), var(--nexus-blue)) !important;
+    border: none !important;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.4);
+    display: flex; align-items: center; gap: 5px;
+}
+.glow-btn:hover {
+    box-shadow: 0 0 25px rgba(139, 92, 246, 0.6);
+    transform: translateY(-2px);
+}
+
+.nav-icon-btn {
+    background: none; border: none; cursor: pointer;
+    padding: 8px; border-radius: 50%;
+    transition: background 0.2s;
+}
+.nav-icon-btn:hover { background: rgba(255,255,255,0.1); }
+
+/* =========================================
+   4. HERO SECTION (ModernLanding)
+   ========================================= */
+.hero-container {
+    position: relative;
+    padding: 80px 20px;
+    text-align: center;
+    overflow: hidden;
+    min-height: 85vh; /* Covers most of the screen */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Glowing Background Orbs */
+.glow-orb {
+    position: absolute;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    filter: blur(100px);
+    z-index: -1; /* Content ke peeche */
+    animation: glowPulse 8s infinite ease-in-out;
+}
+.top-left { top: -10%; left: -10%; background: rgba(139, 92, 246, 0.15); }
+.bottom-right { bottom: -10%; right: -10%; background: rgba(59, 130, 246, 0.15); }
+
+.hero-title {
+    font-size: 80px;
+    line-height: 1.1;
+    font-weight: 900;
+    margin-bottom: 24px;
+    letter-spacing: -2px;
+}
+
+.hero-subtitle {
+    font-size: 20px;
+    color: var(--text-muted);
+    max-width: 650px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+}
+
+.cta-button {
+    padding: 16px 45px;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 50px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.cta-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
+}
+
+.primary-glow {
+    background: var(--text-main);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* Floating Cards Visual */
+.hero-visual {
+    margin-top: 80px;
+    position: relative;
+    height: 120px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.floating-card {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid var(--glass-border);
+    padding: 12px 30px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    position: absolute;
+    animation: float 5s infinite ease-in-out;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+    backdrop-filter: blur(5px);
+}
+.card-1 { left: 10%; top: 10px; animation-delay: 0s; color: var(--nexus-pink); }
+.card-2 { left: 50%; top: 60px; animation-delay: 1.5s; color: var(--nexus-blue); transform: translateX(-50%); }
+.card-3 { right: 10%; top: 10px; animation-delay: 2.5s; color: var(--nexus-purple); }
+
+/* =========================================
+   5. FEATURES SECTION (About)
+   ========================================= */
+.about-wrapper {
+    padding: 60px 20px;
+    display: flex; flex-direction: column; align-items: center;
+}
+.about-header { text-align: center; margin-bottom: 50px; }
+.section-title { font-size: 48px; margin-bottom: 15px; font-weight: 800; }
+.section-subtitle { color: var(--text-muted); font-size: 18px; }
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.feature-card {
+    background: var(--nexus-dark);
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    border-color: var(--nexus-purple);
+    box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+}
+
+.f-icon-box {
+    font-size: 40px; margin-bottom: 20px;
+    color: var(--nexus-blue);
+    transition: transform 0.3s;
+}
+.feature-card:hover .f-icon-box { transform: scale(1.1); color: var(--nexus-purple); }
+
+.feature-card h3 { font-size: 22px; margin-bottom: 10px; color: white; }
+.feature-card p { color: var(--text-muted); line-height: 1.6; font-size: 15px; }
+
+/* =========================================
+   6. CONTACT SECTION (Modern Card)
+   ========================================= */
+.contact-modern-wrapper {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.contact-glass-card.full-width-card {
+    background: rgba(15, 15, 15, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 60px 30px;
+    max-width: 1000px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.contact-desc {
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 15px auto 50px auto;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.info-cards-grid {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.info-box-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    padding: 30px 20px;
+    border-radius: 16px;
+    width: 260px;
+    transition: all 0.3s ease;
+}
+.info-box-item:hover {
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-8px);
+    border-color: var(--nexus-blue);
+}
+
+.icon-box-large {
+    width: 60px; height: 60px;
+    background: rgba(59, 130, 246, 0.1);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--nexus-blue);
+    font-size: 26px;
+    margin: 0 auto 15px auto;
+}
+
+.info-box-item h3 { color: white; margin-bottom: 8px; font-size: 18px; }
+.info-box-item p { color: var(--text-muted); font-size: 14px; }
+
+/* Social Icons */
+.social-links-center { display: flex; justify-content: center; gap: 20px; }
+.s-icon-large {
+    width: 45px; height: 45px;
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 20px;
+    transition: all 0.3s;
+}
+.s-icon-large:hover {
+    background: var(--nexus-blue);
+    border-color: var(--nexus-blue);
+    transform: scale(1.1) rotate(10deg);
+}
+
+.divider-line {
+    width: 80px; height: 2px;
+    background: #333; margin: 0 auto 30px auto;
+}
+
+/* =========================================
+   7. FOOTER
+   ========================================= */
+.landing-footer {
+    padding: 30px 20px;
+    background: #020202;
+    border-top: 1px solid #1a1a1a;
+    margin-top: auto; /* Pushes footer to bottom */
+}
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #666;
+    font-size: 14px;
+}
+.footer-links { display: flex; gap: 25px; }
+.footer-links a, .footer-links span {
+    color: #666; text-decoration: none; cursor: pointer; transition: color 0.2s;
+}
+.footer-links a:hover { color: white; }
+
+/* =========================================
+   8. RESPONSIVE MEDIA QUERIES
+   ========================================= */
+@media (max-width: 1024px) {
+    .hero-title { font-size: 60px; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+    /* Navbar Mobile */
+    .glass-nav { padding: 15px 20px; }
+    .nav-links-center { display: none; } /* Hide center links on mobile */
+    
+    /* Hero Mobile */
+    .hero-title { font-size: 45px; }
+    .hero-subtitle { font-size: 16px; padding: 0 10px; }
+    .hero-visual { height: auto; margin-top: 40px; display: none; } /* Hide floating cards on small mobile */
+    
+    /* Features Mobile */
+    .features-grid { grid-template-columns: 1fr; }
+    
+    /* Contact Mobile */
+    .info-box-item { width: 100%; }
+    
+    /* Footer Mobile */
+    .footer-content { flex-direction: column; gap: 15px; }
+}
+
+
+
+/* --- NAVBAR BUTTONS (Updated) --- */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* 1. Login Button (Transparent Style) */
+.nav-login-btn {
+    display: flex;
+    padding: 10px 24px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.05); /* Halka sa background */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.05); 
+    transition: all 0.3s ease;
+    /* Shape */
+    border-radius: 50px;
+    text-decoration: none; /* Line hatayi */
+    font-weight: 700;      /* Text bold kiya */
+    font-size: 15px;
+    line-height: 1;
+}
+
+.nav-login-btn:hover {
+    background: white;
+    color: black;
+    border-color: white;
+    transform: translateY(-2px);
+}
+
+/* 2. Signup Button (Gradient Style) */
+.nav-signup-btn {
+    padding: 10px 24px;
+    border-radius: 50px;
+    background: linear-gradient(135deg, var(--nexus-purple), var(--nexus-blue));
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.nav-signup-btn:hover {
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
+    transform: translateY(-2px);
+}
+
+/* Open App Button (Jab user login ho) */
+.glow-btn {
+    background: linear-gradient(135deg, var(--nexus-purple), var(--nexus-blue)) !important;
+    border: none !important;
+    color: white !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none; /* Link ke liye */
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-weight: 600;
+}
+
+
+
+/* =========================================
+   RESPONSIVE MOBILE MENU
+   ========================================= */
+
+/* Default: Toggle button chupao (Desktop ke liye) */
+.mobile-menu-toggle {
+    display: none;
+    cursor: pointer;
+    color: white;
+    padding: 5px;
+}
+
+/* Default: Mobile Dropdown chupao */
+.mobile-menu-dropdown {
+    position: fixed;
+    top: 70px; /* Navbar height ke neeche */
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transform: translateY(-150%); /* Upar chupa hua */
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+}
+
+/* Jab menu open ho */
+.mobile-menu-dropdown.active {
+    transform: translateY(0); /* Niche slide hoga */
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* Mobile Links Style */
+.mobile-link {
+    color: #e5e5e5;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+    transition: background 0.2s;
+}
+.mobile-link:hover {
+    background: rgba(255,255,255,0.1);
+    color: white;
+}
+
+.mobile-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 10px 0;
+}
+
+/* Mobile Buttons */
+.mobile-btn {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--nexus-purple), var(--nexus-blue));
+    color: white;
+}
+.mobile-btn.glow { box-shadow: 0 0 15px rgba(139, 92, 246, 0.4); display: flex; justify-content: center; align-items: center; gap: 10px; }
+.mobile-btn.logout { background: transparent; border: 1px solid #ef4444; color: #ef4444; margin-top: 10px; }
+
+/* -------------------------------------------
+   MEDIA QUERY: Only for Mobile (tablets & phones)
+   ------------------------------------------- */
+@media (max-width: 768px) {
+    
+    /* 1. Desktop Cheezein Chupao */
+    .desktop-only {
+        display: none !important;
+    }
+
+    /* 2. Toggle Button Dikhao */
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    /* 3. Navbar Padding Adjust */
+    .glass-nav {
+        padding: 15px 20px;
+        justify-content: space-between; /* Space between Logo & Toggle */
+    }
+}
+
+/* =========================================
+   NEXUS PREMIUM DARK THEME - MAIN CSS
+   ========================================= */
+
+/* =========================================
+   2. STATS STRIP (Glass Bar)
+   ========================================= */
+.stats-strip {
+    width: 85%;
+    max-width: 1100px;
+    margin: -60px auto 0 auto; /* Hero ke upar chadha hua */
+    
+    /* Premium Glass Effect */
+    background: rgba(15, 15, 25, 0.7); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5); /* Deep Shadow */
+    
+    border-radius: 20px;
+    padding: 30px 0;
+    position: relative;
+    z-index: 10;
+}
+
+.stat-content {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 20px;
+    transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+}
+
+.stat-text h3 {
+    font-size: 32px;
+    font-weight: 800;
+    margin: 0;
+    color: #fff;
+    line-height: 1;
+}
+
+.stat-text p {
+    margin: 5px 0 0 0;
+    font-size: 13px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+}
+
+.stat-divider {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.2), transparent);
+}
+
+/* =========================================
+   3. FAQ SECTION (Neon Grid)
+   ========================================= */
+.faq-section {
+    padding: 120px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.faq-card {
+    /* Dark Card */
+    background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 35px;
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Glowing Border on Hover */
+.faq-card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(139, 92, 246, 0.5); /* Purple Border */
+    box-shadow: 0 10px 40px -10px rgba(139, 92, 246, 0.3); /* Purple Glow */
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.faq-card h3 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.faq-card p {
+    font-size: 15px;
+    color: #cbd5e1;
+    line-height: 1.6;
+}
+
+/* =========================================
+   4. BOTTOM CTA (Floating Glow Box)
+   ========================================= */
+.bottom-cta-section {
+    padding: 50px 20px 150px 20px;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+/* Background Glow Effect behind box */
+.bottom-cta-section::before {
+    content: '';
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(236, 72, 153, 0.2) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+}
+
+.cta-box {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    
+    /* Glassy Box */
+    background: rgba(10, 10, 12, 0.6);
+    backdrop-filter: blur(30px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    padding: 80px 40px;
+    border-radius: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.cta-box h2 {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.cta-box p {
+    color: #94a3b8;
+    font-size: 20px;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Big Shiny Button */
+.cta-btn-large {
+    padding: 22px 60px;
+    font-size: 18px;
+    font-weight: 700;
+    border-radius: 100px;
+    border: none;
+    cursor: pointer;
+    
+    /* Purple to Pink Gradient */
+    background: linear-gradient(90deg, #8b5cf6, #ec4899);
+    color: white;
+    
+    box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    transition: all 0.3s ease;
+}
+
+.cta-btn-large:hover {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(236, 72, 153, 0.6);
+}
+
+/* =========================================
+   5. MOBILE RESPONSIVENESS
+   ========================================= */
+@media (max-width: 768px) {
+    /* Stats Stacked */
+    .stats-strip {
+        width: 90%;
+        margin-top: 30px; /* Hero ke neeche aa jayega mobile pe */
+        padding: 20px;
+    }
+    
+    .stat-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 30px;
+    }
+    
+    .stat-divider { display: none; }
+    
+    /* FAQ Single Column */
+    .faq-grid { grid-template-columns: 1fr; }
+    
+    /* CTA Smaller */
+    .cta-box h2 { font-size: 32px; }
+    .cta-box p { font-size: 16px; }
+    .cta-btn-large { width: 100%; }
+}
+
+/* Logo Container Adjustments */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+/* Naya class jo humne img tag par lagaya hai */
+.logo-image {
+    height: 40px;  /* Size adjust kar sakte ho */
+    width: auto;   /* Aspect ratio maintain rahega */
+    object-fit: contain;
+}
+
+/* Text style (Optional adjustment) */
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}

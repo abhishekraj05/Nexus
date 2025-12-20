@@ -228,7 +228,7 @@ const MoreOptionsModal = ({ onClose, onOpenShare }) => {
 
   const handleLogout = () => {
       logout();
-      navigate("/login");
+      navigate("/");
       onClose();
   };
 
