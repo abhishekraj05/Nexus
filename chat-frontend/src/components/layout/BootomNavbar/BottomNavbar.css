@@ -1,0 +1,55 @@
+/* Default: Hidden on Desktop */
+.bottom-navbar {
+    display: none;
+}
+
+/* Mobile Styles (Visible on screens smaller than 768px) */
+@media screen and (max-width: 768px) {
+    .bottom-navbar {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        background-color: #000; /* Match your app theme */
+        border-top: 1px solid #262626;
+        z-index: 1000;
+        padding-bottom: env(safe-area-inset-bottom); /* For iPhone home bar */
+    }
+
+    .mobile-nav-item {
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        opacity: 0.7;
+        width: 20%; /* Distribute space evenly */
+    }
+
+    .mobile-nav-item.active {
+        opacity: 1;
+        font-weight: bold;
+    }
+
+    .mobile-nav-item svg {
+        width: 26px; /* Adjust icon size */
+        height: 26px;
+    }
+
+    /* Profile Avatar in Navbar */
+    .mobile-nav-avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid transparent;
+    }
+
+    .mobile-nav-item.active .mobile-nav-avatar {
+        border: 1px solid white;
+    }
+}

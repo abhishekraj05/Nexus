@@ -512,7 +512,7 @@ const Feed = ({ refreshSignal }) => { // refreshSignal prop add kiya agar aapne 
   return (
     <div className="feed-container">
         <div className="screen-header">
-            <h1 className="screen-title">Codrexa Feed</h1>
+            <h1 style={{marginLeft:"30%"}} className="screen-title">𝓑𝓾𝓫𝓫𝓵𝔂</h1>
         {/* 👇 STORIES BAR YAHAN ADD KIYA */}
         <div className="stories-section">
             <StoriesBar />

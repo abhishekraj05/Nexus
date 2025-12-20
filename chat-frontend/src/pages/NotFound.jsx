@@ -1,13 +1,3 @@
-// import React from 'react'
-
-// export const NotFound = () => {
-//   return (
-//     <div>NotFound</div>
-//   )
-// }
-
-
-
 import React from 'react';
 
 // 'export const Suggestions' ki jagah

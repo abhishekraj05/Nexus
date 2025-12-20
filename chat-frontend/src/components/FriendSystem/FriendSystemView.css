@@ -172,3 +172,138 @@
 .user-status.offline {
   color: var(--text-secondary);
 }
+
+
+
+
+
+
+/* FriendSystemView.css */
+
+.friend-list {
+    background-color: #000 !important;
+    min-height: 100vh;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-list__title {
+    margin: 0 0 20px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.friend-list__message {
+    color: #00a884;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.friend-list__container {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-list__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertical Center */
+    padding: 12px 10px;
+    background-color: #000 !important;
+    border-bottom: 1px solid #111;
+    transition: none !important;
+}
+
+/* No White Hover */
+.friend-list__item:hover {
+    background-color: #000 !important;
+}
+
+.friend-list__clickable-area {
+    display: flex;
+    align-items: center; /* Avatar aur Text ko ek line mein center rakhta hai */
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.friend-list__avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #222;
+}
+
+/* --- Perfect Centering Logic --- */
+.friend-list__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Name aur Status ko vertical center karta hai */
+    /* justify-content: center;  */
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.friend-list__name {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.friend-list__status {
+    font-size: 0.8rem;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+.friend-list__status--online { color: #00a884; }
+.friend-list__status--offline { color: #888; }
+
+/* --- RESPONSIVE Fixes --- */
+@media (max-width: 480px) {
+    .friend-list__status {
+        display: none; /* Mobile par status hide */
+    }
+    
+    .friend-list__avatar {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    .friend-list__name {
+        /* Mobile par jab status hide ho, tab bhi name center mein dikhe */
+        height: 42px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.friend-list__remove-btn {
+    padding: 6px 14px;
+    border-radius: 18px;
+    border: 1px solid #ef4444; /* Red border for remove */
+    background: transparent;
+    color: #ef4444;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.friend-list__remove-btn:hover {
+    background-color: #ef4444;
+    color: #fff;
+}

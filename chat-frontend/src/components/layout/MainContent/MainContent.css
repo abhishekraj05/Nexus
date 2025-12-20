@@ -1,0 +1,55 @@
+
+
+/* Desktop Sidebar Visible */
+.desktop-sidebar-wrapper {
+    display: block;
+    width: 250px; /* Sidebar ki width */
+    position: fixed;
+    height: 100vh;
+    border-right: 1px solid #262626;
+    z-index: 100;
+}
+
+/* Mobile Navbar HIDDEN on Desktop */
+.mobile-navbar-wrapper {
+    display: none; 
+}
+
+/* Main Content Adjustments for Desktop */
+.main-content {
+    flex: 1;
+    margin-left: 250px; /* Sidebar ke liye jagah chhodi */
+    padding: 20px;
+}
+
+
+/* --- MOBILE VIEW (<= 768px) --- */
+@media screen and (max-width: 768px) {
+
+    .app-container {
+        flex-direction: column;
+    }
+
+    /* 1. Hide Sidebar */
+    .desktop-sidebar-wrapper {
+        display: none !important;
+    }
+
+    /* 2. Show Bottom Navbar */
+    .mobile-navbar-wrapper {
+        display: block;
+    }
+
+    /* 3. Adjust Main Content for Mobile */
+    .main-content {
+        margin-left: 0; /* Sidebar hat gaya, margin 0 karo */
+        padding: 0;
+        padding-bottom: 70px; /* Bottom Bar ke peeche content na chhupe */
+        width: 100%;
+    }
+
+    /* Optional: Chat Button ko thoda upar shift karo mobile par */
+    .chat-toggle-button {
+        bottom: 80px; 
+    }
+}

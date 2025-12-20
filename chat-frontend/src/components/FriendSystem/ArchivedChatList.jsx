@@ -81,11 +81,20 @@ const ArchivedChatList = ({ onUnarchiveSuccess }) => {
             ) : (
                 <div className="chat-items-container">
                     {archivedChats.map((chat) => {
-                        // --- Calculate chatName and avatarUrl ---
-                        const isGroup = chat.type === "group";
-                        const chatName = isGroup ? chat.name : chat.members?.find((m) => m._id !== currentUserId)?.name || "Unknown User";
-                        const avatarUrl = `https://api.dicebear.com/7.x/initials/svg?seed=${chatName}`;
-                        // -----------------------------------------
+                        // --- FIX: Calculate chatName and avatarUrl with photoURL support ---
+                    const isGroup = chat.type === "group";
+                    
+                    // 1. Other user dhundo
+                    const otherUser = isGroup ? null : chat.members?.find((m) => m._id !== currentUserId);
+                    
+                    // 2. Chat name set karo
+                    const chatName = isGroup ? (chat.name || "Group") : (otherUser?.name || "Unknown User");
+                    
+                    // 3. AVATAR LOGIC: Check photoURL first, then fallback to Dicebear
+                    const avatarUrl = (!isGroup && otherUser?.photoURL) 
+                        ? otherUser.photoURL 
+                        : `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(chatName)}`;
+                    // ------------------------------------------------------------------
 
                         return (
                             <div key={chat._id} className="chat-item">

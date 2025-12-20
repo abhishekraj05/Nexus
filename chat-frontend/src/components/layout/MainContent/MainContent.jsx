@@ -128,12 +128,14 @@ import React, { useState, useContext, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { io } from "socket.io-client"; 
 import API from "../../../api/api"; 
+import './MainContent.css';
 
 // Context
 import { AuthContext } from "../../../context/AuthContext";
 
 // Components
 import LeftSidebar from '../LeftSidebar/LeftSidebar';
+import BottomNavbar from '../BootomNavbar/BottomNavbar';
 import ChatPanel from '../../Chat/ChatPanel';
 import { ChatIcon } from '../../UI/Icons';
 import CreatePostModal from '../../Home/CreatePostModal'; // Modal Import
@@ -200,7 +202,10 @@ export default function MainLayout() {
     <div className="app-container">
       
       {/* LeftSidebar ko function pass kiya taaki wo modal khol sake */}
-      <LeftSidebar onCreateClick={() => setCreateModalOpen(true)} /> 
+      <div className="desktop-sidebar-wrapper">
+        <LeftSidebar onCreateClick={() => setCreateModalOpen(true)} /> 
+
+      </div>
 
       <main className="main-content">
         <Routes>
@@ -218,6 +223,12 @@ export default function MainLayout() {
           <Route index element={<HomeView refreshSignal={refreshFeedTrigger} />} />
         </Routes>
       </main>
+
+
+      <div className="mobile-navbar-wrapper">
+      <BottomNavbar onOpenCreate={() => setCreateModalOpen(true)} />    
+
+      </div>
 
       {/* --- CHAT BUTTON & PANEL --- */}
       <button id="chat-toggle" className="chat-toggle-button" onClick={() => setIsChatOpen(!isChatOpen)}>

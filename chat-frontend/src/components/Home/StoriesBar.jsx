@@ -46,12 +46,10 @@ const StoriesBar = () => {
         try {
             const res = await client.post('/stories', formData);
             if (res.data.success) {
-                alert("Status Added! 🎉");
                 fetchStories(); // List refresh karo
             }
         } catch (error) {
             console.error("Upload failed", error);
-            alert("Failed to upload status");
         } finally {
             setUploading(false);
         }
@@ -90,7 +88,7 @@ const StoriesBar = () => {
                     <div key={story._id} className="story-item" onClick={() => setViewStory(story)}>
                         <div className="story-circle-border active-story">
                             <img 
-                                src={story.user?.avatar || "https://via.placeholder.com/60"} 
+                                src={story.user?.photoURL || "https://via.placeholder.com/60"} 
                                 alt={story.user?.name} 
                                 className="story-avatar" 
                             />

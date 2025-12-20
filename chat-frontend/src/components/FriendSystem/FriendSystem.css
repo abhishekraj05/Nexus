@@ -164,3 +164,143 @@
   font-style: italic;
   color: #555;
 }
+
+
+
+
+/* --- Pending Requests Block --- */
+.pending-req {
+    background-color: #000 !important;
+    min-height: 100vh;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.pending-req__title {
+    margin: 0 0 20px 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.pending-req__message {
+    color: #00a884;
+    font-size: 0.9rem;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.pending-req__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Perfect Vertical Center */
+    padding: 14px 10px;
+    background-color: #000 !important;
+    border-bottom: 1px solid #111;
+    transition: none !important;
+}
+
+.pending-req__item:hover {
+    background-color: #000 !important; /* No White Hover */
+}
+
+.pending-req__sender {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+}
+
+.pending-req__avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #222;
+}
+
+/* --- Centering Name & Subtitle --- */
+.pending-req__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically Centers the text */
+    height: 48px;
+    min-width: 0;
+}
+
+.pending-req__name {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1.2;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pending-req__subtitle {
+    font-size: 0.8rem;
+    color: #888;
+    line-height: 1.2;
+    margin-top: 2px;
+}
+
+/* --- Action Buttons --- */
+.pending-req__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.pending-req__btn {
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.pending-req__btn--accept {
+    background-color: #00a884;
+    color: #fff;
+}
+
+.pending-req__btn--reject {
+    background-color: #333;
+    color: #ef4444;
+}
+
+/* --- Mobile Fixes --- */
+@media (max-width: 480px) {
+    .pending-req__subtitle {
+        display: none; /* Mobile par subtitle hide */
+    }
+
+    .pending-req__info {
+        height: 42px;
+    }
+
+    .pending-req__avatar {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    .pending-req__name {
+        /* Mobile par akela name center ho jaye */
+        height: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .pending-req__btn {
+        padding: 6px 12px;
+        font-size: 11px;
+    }
+}

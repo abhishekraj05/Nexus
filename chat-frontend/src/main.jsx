@@ -22,9 +22,11 @@ import { createRoot } from 'react-dom/client'
 import "./styles/global.css";
 import "./styles/variables.css";
 import RootApp from './RootApp';
+// import Snowfall from 'react-snowfall';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+      {/* <Snowfall /> */}
     <RootApp />
   </StrictMode>,
 )

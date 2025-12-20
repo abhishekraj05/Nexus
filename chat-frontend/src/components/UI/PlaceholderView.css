@@ -1,0 +1,156 @@
+/* PlaceholderView.css */
+
+.friend-system {
+    background-color: #000 !important;
+    min-height: 100vh;
+    padding: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-system__title {
+    margin: 0 0 20px 0;
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* --- Search Bar --- */
+.friend-system__search {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.friend-system__input {
+    flex: 1;
+    padding: 12px 16px;
+    border: 1px solid #333; 
+    border-radius: 12px;
+    outline: none;
+    background-color: #121212; 
+    color: #fff;
+    font-size: 16px;
+}
+
+.friend-system__search-btn {
+    padding: 0 18px;
+    background-color: #00a884;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* --- List Styling --- */
+.friend-system__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.friend-system__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Vertical alignment for the whole row */
+    padding: 12px 10px;
+    background-color: #000 !important;
+    border-bottom: 1px solid #111;
+    transition: none !important;
+}
+
+.friend-system__item:hover {
+    background-color: #000 !important;
+}
+
+.friend-system__clickable-area {
+    display: flex;
+    align-items: center; /* Avatar aur Text ko line mein rakhne ke liye */
+    gap: 14px;
+    flex: 1;
+    min-width: 0;
+    cursor: pointer;
+}
+
+.friend-system__avatar {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #222;
+}
+
+/* --- Name & Email Container --- */
+.friend-system__info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Bich mein (Center) align karne ke liye */
+    justify-content: center; 
+    align-items: flex-start;
+    min-width: 0;
+}
+
+.friend-system__name {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.friend-system__email {
+    font-size: 0.85rem;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block; /* Desktop par dikhega */
+}
+
+/* --- RESPONSIVE: Mobile par email hide karne ke liye --- */
+@media (max-width: 480px) {
+    .friend-system__email {
+        display: none; /* Mobile par email gayab */
+    }
+    
+    .friend-system__avatar {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+    }
+
+    .friend-system__name {
+        font-size: 0.95rem;
+    }
+}
+
+/* --- Add Friend Button --- */
+.friend-system__add-btn {
+    padding: 8px 16px;
+    border-radius: 20px;
+    border: 1px solid #00a884;
+    background: transparent;
+    color: #00a884;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: all 0.2s;
+}
+
+.friend-system__add-btn:hover:not(:disabled) {
+    background-color: #00a884 !important;
+    color: #000 !important;
+}
+
+.friend-system__add-btn--sent {
+    border-color: #333;
+    color: #555;
+    background-color: transparent;
+    cursor: not-allowed;
+}
