@@ -110,7 +110,8 @@ const server = http.createServer(app);
 // --- SOCKET.IO SETUP ---
 const io = socketIo(server, {
     cors: {
-        origin: "http://localhost:5173", // Frontend URL
+        // origin: "http://localhost:5173",
+        origin: "https://crjoin.online", // Frontend URL
         methods: ["GET", "POST", "PUT", "DELETE"]
     }
 });
@@ -119,7 +120,8 @@ socketHandler(io);
 // -----------------------
 
 // --- CORE MIDDLEWARES ---
-app.use(cors({ origin: "http://localhost:5173" }));
+// app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://crjoin.online" }));
 app.use(express.json());
 
 // --- 2. Middleware to attach 'io' AND 'onlineUsers' ---

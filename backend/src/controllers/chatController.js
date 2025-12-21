@@ -1,27 +1,6 @@
 const Chat = require("../models/Chat");
 
 // Create 1-to-1 chat
-// exports.createDirectChat = async (req, res) => {
-//   try {
-//     const { members } = req.body; // 2 users
-//     if (!members.includes(req.user.id)) members.push(req.user.id);
-
-//     const existing = await Chat.findOne({
-//       type: "direct",
-//       members: { $all: members, $size: members.length }
-//     });
-//     if (existing) return res.json(existing);
-
-//     const chat = new Chat({ type: "direct", members });
-//     console.log(chat);
-//     await chat.save();
-//     res.status(201).json(chat);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// Create 1-to-1 chat
 exports.createDirectChat = async (req, res) => {
   try {
     const { members } = req.body; // Expecting an array with ONE other user ID
@@ -42,7 +21,7 @@ exports.createDirectChat = async (req, res) => {
     });
 
     if (existing) {
-      console.log("Direct chat already exists:", existing._id);
+      // console.log("Direct chat already exists:", existing._id);
       // Populate members before sending back, just like getChats
       const populatedChat = await existing.populate(
         "members",

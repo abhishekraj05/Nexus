@@ -19,7 +19,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => {
-    console.log("Uploading file type:", file.mimetype);
+    // console.log("Uploading file type:", file.mimetype);
 
     const rawMimes = [
       "application/msword", // .doc

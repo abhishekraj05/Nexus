@@ -19,9 +19,9 @@ const getPostType = (mimetype) => {
 exports.createPost = async (req, res) => {
     try {
         // 1. Console log lagao taaki pata chale data aa raha hai ya nahi
-        console.log("Logged-in user:", req.user);
-        console.log("Req Body:", req.body);
-        console.log("Req File:", req.file); // File check karna zaroori hai
+        // console.log("Logged-in user:", req.user);
+        // console.log("Req Body:", req.body);
+        // console.log("Req File:", req.file); 
 
         // 2. User Check
         if (!req.user) {

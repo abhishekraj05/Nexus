@@ -1,344 +1,3 @@
-// const Message = require("../models/Message");
-// const Chat = require("../models/Chat");
-// const CryptoJS = require("crypto-js");
-
-// // AES key for MVP (one key per chat, can be improved later)
-// const CHAT_KEY = process.env.CHAT_KEY || "1234567890123456";
-
-// // Send message
-// exports.sendMessage = async (req, res) => {
-//   try {
-//     const { chatId, type, text, mediaUrl } = req.body;
-
-//     // Encrypt text if type === text
-//     let encryptedText = text;
-//     if (type === "text" && text) {
-//       encryptedText = CryptoJS.AES.encrypt(text, CHAT_KEY).toString();
-//     }
-
-//     const message = new Message({
-//       chatId,
-//       senderId: req.user.id,
-//       type,
-//       text: encryptedText,
-//       mediaUrl
-//     });
-
-//     await message.save();
-
-//     // Update lastMessage in Chat
-//     await Chat.findByIdAndUpdate(chatId, {
-//       lastMessage: { text, senderId: req.user.id, timestamp: new Date() }
-//     });
-
-//     res.status(201).json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// // Get messages for a chat
-// // exports.getMessages = async (req, res) => {
-// //   try {
-// //     const { chatId } = req.params;
-// //     const messages = await Message.find({ chatId }).populate("senderId", "name email pic").sort({ createdAt: 1 });
-
-// //     // Decrypt text
-// //     const decrypted = messages.map((m) => {
-// //       let text = m.text;
-// //       if (m.type === "text" && text) {
-// //         const bytes = CryptoJS.AES.decrypt(text, CHAT_KEY);
-// //         text = bytes.toString(CryptoJS.enc.Utf8);
-// //       }
-// //       return { ...m._doc, text };
-// //     });
-
-// //     res.json(decrypted);
-// //   } catch (err) {
-// //     res.status(500).json({ msg: err.message });
-// //   }
-// // };
-
-
-
-
-
-// exports.getMessages = async (req, res) => {
-//   try {
-//     const { chatId } = req.params;
-//     const messages = await Message.find({ chatId })
-//       .populate("senderId", "name email pic")
-//       .sort({ createdAt: 1 });
-
-//     // Decrypt text SAFELY (crash nahi hoga)
-//     const decrypted = messages.map((m) => {
-//       let text = m.text;
-      
-//       // Check karo ki type 'text' hai, text hai, aur text encrypted lag raha hai
-//       if (m.type === "text" && text && text.startsWith("U2FsdGVkX1")) {
-//         try {
-//           // Ise decrypt karne ki koshish karo
-//           const bytes = CryptoJS.AES.decrypt(text, CHAT_KEY);
-//           text = bytes.toString(CryptoJS.enc.Utf8);
-          
-//           // Agar key galat thi aur result khaali aaya
-//           if (!text) {
-//             text = "[Key Galat Hai]"; // Ya wapas 'm.text' dikha do
-//           }
-//         } catch (e) {
-//           // Agar decryption poori tarah fail ho (data galat hai)
-//           text = "[Decryption Error]"; // Crash nahi hoga
-//         }
-//       }
-//       // Agar text plain hai (jaise "Hello"), toh woh waisa hi nikal jayega
-      
-//       return { ...m._doc, text };
-//     });
-
-//     res.json(decrypted);
-//   } catch (err) {
-//     // General server error
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.editMessage = async (req, res) => {
-//   try {
-//     const { messageId, newText } = req.body;
-//     const message = await Message.findById(messageId);
-
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-//     if (message.senderId.toString() !== req.user.id) return res.status(403).json({ msg: "Not authorized" });
-
-//     // Encrypt text
-//     const encryptedText = CryptoJS.AES.encrypt(newText, CHAT_KEY).toString();
-//     message.text = encryptedText;
-//     message.edited = true;
-//     await message.save();
-
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.deleteMessage = async (req, res) => {
-//   try {
-//     const { messageId } = req.params;
-//     const message = await Message.findById(messageId);
-
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-//     if (message.senderId.toString() !== req.user.id) return res.status(403).json({ msg: "Not authorized" });
-
-//     message.deleted = true;
-//     await message.save();
-
-//     res.json({ msg: "Message deleted", message });
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.reactMessage = async (req, res) => {
-//   try {
-//     const { messageId, emoji } = req.body;
-//     const message = await Message.findById(messageId);
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-
-//     message.reactions.set(req.user.id, emoji);
-//     await message.save();
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.markDelivered = async (req, res) => {
-//   try {
-//     const { messageId } = req.body;
-//     const message = await Message.findById(messageId);
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-
-//     if (!message.deliveredTo.includes(req.user.id)) message.deliveredTo.push(req.user.id);
-//     await message.save();
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.markSeen = async (req, res) => {
-//   try {
-//     const { messageId } = req.body;
-//     const message = await Message.findById(messageId);
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-
-//     message.seenBy.set(req.user.id, new Date());
-//     await message.save();
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-
-
-
-
-
-// const Message = require("../models/Message");
-// const Chat = require("../models/Chat");
-// const CryptoJS = require("crypto-js");
-
-// // AES key
-// const CHAT_KEY = process.env.CHAT_KEY || "1234567890123456";
-
-// // Send message
-// exports.sendMessage = async (req, res) => {
-//   try {
-//     const { chatId, type, text, mediaUrl } = req.body;
-
-//     // Encrypt text if type === text
-//     let encryptedText = text;
-//     if (type === "text" && text) {
-//       encryptedText = CryptoJS.AES.encrypt(text, CHAT_KEY).toString();
-//     }
-
-//     const message = new Message({
-//       chatId,
-//       senderId: req.user.id,
-//       type,
-//       text: encryptedText, // Encrypted text save kiya
-//       mediaUrl,
-//     });
-
-//     await message.save();
-
-//     // --- FIX 1 ---
-//     // 'lastMessage' mein bhi ENCRYPTED text hi save karein
-//     await Chat.findByIdAndUpdate(chatId, {
-//       lastMessage: {
-//         text: encryptedText, // Yahaan 'text' ki jagah 'encryptedText'
-//         senderId: req.user.id,
-//         timestamp: new Date(),
-//       },
-//     });
-
-//     // Client ko naya message bhej diya
-//     res.status(201).json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// // Get messages for a chat
-// exports.getMessages = async (req, res) => {
-//   try {
-//     const { chatId } = req.params;
-    
-//     // --- FIX 2 ---
-//     // Server par decryption (map function) poori tarah hata diya
-//     // Sirf database se data fetch kiya aur bhej diya
-//     const messages = await Message.find({ chatId })
-//       .populate("senderId", "name email pic") // Saath mein sender ki info bhi bhej di
-//       .sort({ createdAt: 1 });
-
-//     // Encrypted messages ko jaisa hai, waisa hi bhej diya
-//     res.json(messages);
-
-//   } catch (err) {
-//     // Ab yeh crash nahi hoga
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// // --- (Baaki ke functions sahi hain) ---
-
-// exports.editMessage = async (req, res) => {
-//   try {
-//     const { messageId, newText } = req.body;
-//     const message = await Message.findById(messageId);
-
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-//     if (message.senderId.toString() !== req.user.id)
-//       return res.status(403).json({ msg: "Not authorized" });
-
-//     // Encrypt text
-//     const encryptedText = CryptoJS.AES.encrypt(newText, CHAT_KEY).toString();
-//     message.text = encryptedText;
-//     message.edited = true;
-//     await message.save();
-
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.deleteMessage = async (req, res) => {
-//   try {
-//     const { messageId } = req.params;
-//     const message = await Message.findById(messageId);
-
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-//     if (message.senderId.toString() !== req.user.id)
-//       return res.status(403).json({ msg: "Not authorized" });
-
-//     message.deleted = true;
-//     await message.save();
-
-//     res.json({ msg: "Message deleted", message });
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.reactMessage = async (req, res) => {
-//   console.log(req.body);
-//   try {
-//     const { messageId, emoji } = req.body;
-//     const message = await Message.findById(messageId);
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-
-//     message.reactions.set(req.user.id, emoji);
-//     await message.save();
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.markDelivered = async (req, res) => {
-//   try {
-//     const { messageId } = req.body;
-//     const message = await Message.findById(messageId);
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-
-//     if (!message.deliveredTo.includes(req.user.id))
-//       message.deliveredTo.push(req.user.id);
-//     await message.save();
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-// exports.markSeen = async (req, res) => {
-//   try {
-//     const { messageId } = req.body;
-//     const message = await Message.findById(messageId);
-//     if (!message) return res.status(404).json({ msg: "Message not found" });
-
-//     message.seenBy.set(req.user.id, new Date());
-//     await message.save();
-//     res.json(message);
-//   } catch (err) {
-//     res.status(500).json({ msg: err.message });
-//   }
-// };
-
-
-
 const Message = require("../models/Message");
 const Chat = require("../models/Chat");
 const CryptoJS = require("crypto-js");
@@ -398,75 +57,6 @@ exports.sendMessage = async (req, res) => {
         res.status(500).json({ msg: "Server error while sending message" });
     }
 };
-
-
-// exports.sendMessage = async (req, res) => {
-//     try {
-//         const { chatId, type, text, mediaUrl } = req.body;
-//         const senderId = req.user.id; // User A (Sender)
-
-//         // --- Validation ---
-//         if (!chatId) {
-//             return res.status(400).json({ msg: "Chat ID is required" });
-//         }
-//         // Text message ke liye text hona zaroori hai
-//         if (type === 'text' && !text) {
-//              return res.status(400).json({ msg: "Message content is missing" });
-//         }
-//         // File/Media message ke liye URL aur Text (filename) hona zaroori hai
-//         if (type !== 'text' && (!mediaUrl || !text)) {
-//             return res.status(400).json({ msg: "Media URL or file name is missing" });
-//         }
-
-//         // --- Encryption ---
-//         let content = text;
-        
-//         // Sirf 'text' type ke message ko encrypt karein
-//         if (type === "text" && text) {
-//             content = CryptoJS.AES.encrypt(text, CHAT_KEY).toString();
-//         }
-//         // Agar 'file', 'image' etc. hai, toh 'content' (filename) ko encrypt NAHI karna hai
-//         // --------------------
-
-//         const message = new Message({
-//             chatId,
-//             senderId,
-//             type, // type (text, image, file, etc.) ko save karein
-//             text: content, // Encrypted text YA plain filename
-//             mediaUrl: type !== "text" ? mediaUrl : undefined, // mediaUrl save karein (undefined agar text hai)
-//             status: 'sent',
-//         });
-
-//         await message.save();
-
-//         const populatedMessage = await message.populate('senderId', 'name photoURL');
-        
-//         // Last message update karein
-//         await Chat.findByIdAndUpdate(chatId, {
-//             lastMessage: {
-//                 text: content, // Encrypted text ya plain filename
-//                 senderId: senderId,
-//                 timestamp: populatedMessage.createdAt,
-//             },
-//         });
-        
-//         // --- REAL-TIME LOGIC ---
-//         // Yeh logic ab 'socketHandler.js' mein 'sendMessage' event ke zariye hota hai
-//         // (Isliye messageController se 'req.io' block hata diya gaya hai)
-//         // -----------------------------------------------
-
-//         res.status(201).json(populatedMessage);
-
-//     } catch (err) {
-//         console.error("Error sending message:", err);
-//         res.status(500).json({ msg: "Server error while sending message" });
-//     }
-// };
-
-
-
-
-// controllers/messageController.js
 
 
 
@@ -607,7 +197,7 @@ exports.reactMessage = async (req, res) => {
             return res.status(404).json({ msg: "Message not found" });
         }
 
-        console.log(logMessage); // Naya log
+        // console.log(logMessage);
 
         // --- 3. EMIT SOCKET EVENT ---
         if (req.io) {
@@ -753,7 +343,7 @@ exports.markChatAsSeen = async (req, res) => {
             }
         );
 
-        console.log(`[markSeen V4] Update Result: Matched: ${updateResult.matchedCount}, Modified: ${updateResult.modifiedCount}`);
+        // console.log(`[markSeen V4] Update Result: Matched: ${updateResult.matchedCount}, Modified: ${updateResult.modifiedCount}`);
 
         // Event hamesha emit karein (taaki UI sync ho)
         if (req.io && req.onlineUsers) {
@@ -858,7 +448,7 @@ exports.clearChat = async (req, res) => {
         );
         // ------------------
 
-        console.log(`[clearChat] User ${userId} cleared all messages in chat ${chatId}`);
+        // console.log(`[clearChat] User ${userId} cleared all messages in chat ${chatId}`);
 
         if (req.io && req.onlineUsers) {
             // Sirf us user ko event bhejein jisne request ki thi
@@ -892,7 +482,7 @@ exports.deleteMultipleForMe = async (req, res) => {
             { $addToSet: { clearedBy: userId } } // User ki ID ko 'clearedBy' mein add karo
         );
         
-        console.log(`[DeleteForMe] User ${userId} cleared ${messageIds.length} messages.`);
+        // console.log(`[DeleteForMe] User ${userId} cleared ${messageIds.length} messages.`);
         
         // Sirf sender ko update bhejein (taaki UI refresh ho)
         if (req.io && req.onlineUsers) {
@@ -931,7 +521,7 @@ exports.deleteMultipleForEveryone = async (req, res) => {
             }
         );
 
-        console.log(`[DeleteForEveryone] User ${userId} soft-deleted messages.`);
+        // console.log(`[DeleteForEveryone] User ${userId} soft-deleted messages.`);
 
         // Sabko real-time update bhejein
         if (req.io) {

@@ -217,7 +217,7 @@ exports.getFriendStatuses = async (req, res) => {
 exports.getMyFriends = async (req, res) => {
   try {
     const currentUserId = req.user.id;
-    console.log("🔍 Finding friends for User ID:", currentUserId);
+    // console.log("🔍 Finding friends for User ID:", currentUserId);
 
     // 1. Database se friends dhoondo
     const friendships = await FriendRequest.find({
@@ -225,7 +225,7 @@ exports.getMyFriends = async (req, res) => {
         $or: [{ sender: currentUserId }, { receiver: currentUserId }]
     }).populate('sender receiver', 'name photoURL email'); // 👈 Check: 'photoURL' use kiya hai
 
-    console.log("✅ Total Friendships found:", friendships.length);
+    // console.log("✅ Total Friendships found:", friendships.length);
 
     // 2. List ko clean karo aur format sahi karo
     const friends = friendships.map(f => {
@@ -244,7 +244,7 @@ exports.getMyFriends = async (req, res) => {
         };
     }).filter(f => f !== null); // Null values hata do
 
-    console.log("🚀 Final Friends List to send:", friends);
+    // console.log("🚀 Final Friends List to send:", friends);
 
     res.status(200).json({ success: true, friends });
   } catch (error) {
