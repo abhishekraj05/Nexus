@@ -1,7 +1,19 @@
+
+
+const mongoose = require("mongoose");
+const User = require("../models/User");
+const FriendRequest = require("../models/FriendRequest");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const cloudinary = require("cloudinary").v2;
+
+const SECRET = process.env.JWT_SECRET || "supersecret";
+
+
 // Register user
 const registerUser = async (req, res) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
     const { name, email, password } = req.body;
     if (!name || !email || !password)
       return res.status(400).json({ msg: "Please fill all fields" });
@@ -87,10 +99,10 @@ const getUserById = async (req, res) => {
  */
 const updateUser = async (req, res) => {
 
-  // console.log("--- DEBUG UPDATE USER ---");
-  //   console.log("ID from Token (req.user.id):", req.user.id);
-  //   console.log("ID from URL (req.params.id):", req.params.id);
-  //   console.log("Are they matching?", req.user.id === req.params.id);
+  console.log("--- DEBUG UPDATE USER ---");
+    console.log("ID from Token (req.user.id):", req.user.id);
+    console.log("ID from URL (req.params.id):", req.params.id);
+    console.log("Are they matching?", req.user.id === req.params.id);
 
   try {
     // --- 1. SECURITY CHECK ---
