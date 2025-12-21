@@ -108,20 +108,46 @@ const app = express();
 const server = http.createServer(app);
 
 // --- SOCKET.IO SETUP ---
+
+// const io = socketIo(server, {
+//     cors: {
+//         // origin: "http://localhost:5173",
+//         origin: "https://crjoin.online", 
+//         methods: ["GET", "POST", "PUT", "DELETE"]
+//     }
+// });
+
 const io = socketIo(server, {
     cors: {
-        // origin: "http://localhost:5173",
-        origin: "https://crjoin.online", // Frontend URL
-        methods: ["GET", "POST", "PUT", "DELETE"]
+        origin: [
+            "http://localhost:5173",          // Local testing
+            "http://crjoin.online",           // 👈 YE ZAROORI HAI (Abhi ye error de raha tha)
+            "https://crjoin.online",          // Secure domain
+            "https://www.crjoin.online"       // With www
+        ],
+        methods: ["GET", "POST", "PUT", "DELETE"],
+        credentials: true
     }
 });
+
 // Pass the 'io' instance to your socket event handler logic
 socketHandler(io);
 // -----------------------
 
 // --- CORE MIDDLEWARES ---
 // app.use(cors({ origin: "http://localhost:5173" }));
-app.use(cors({ origin: "https://crjoin.online" }));
+
+app.use(cors({
+    origin: [
+        "http://localhost:5173",          // Local testing
+        "http://crjoin.online",           // 👈 YE ZAROORI HAI
+        "https://crjoin.online",          // Secure domain
+        "https://www.crjoin.online"       // With www
+    ],
+    credentials: true // Token/Cookies ke liye zaroori hai
+}));
+
+
 app.use(express.json());
 
 // --- 2. Middleware to attach 'io' AND 'onlineUsers' ---
