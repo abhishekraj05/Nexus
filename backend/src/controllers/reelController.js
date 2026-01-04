@@ -64,7 +64,7 @@ exports.getAllReels = async (req, res) => {
         { author: currentUserId } // Condition 3: Apni reels hamesha dikhe (Only Me included)
       ]
     })
-      .populate("author", "name avatar photoURL")
+      .populate("author", "name avatar photoURL username")
       .sort({ createdAt: -1 }); // Nayi reel sabse upar
 
     res.status(200).json({ success: true, reels });
@@ -82,7 +82,7 @@ exports.getMyReels = async (req, res) => {
   try {
     // Apni profile par user ko SAB dikhna chahiye (Public, Private, Only Me)
     const reels = await Reel.find({ author: req.user.id })
-      .populate("author", "name avatar photoURL")
+      .populate("author", "name avatar photoURL username")
       .sort({ createdAt: -1 });
 
     res.status(200).json({ success: true, reels });

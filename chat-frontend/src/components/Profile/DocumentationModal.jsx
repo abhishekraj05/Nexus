@@ -11,7 +11,7 @@ const DocumentationModal = ({ onClose }) => {
         <div className="doc-header">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <IoDocumentText size={24} color="#3b82f6" />
-            <h3>Bubbly Features & Guide</h3>
+            <h3>Nexus Features & Guide</h3>
           </div>
           <button className="close-btn" onClick={onClose}>
             <IoClose size={24} />
@@ -22,9 +22,9 @@ const DocumentationModal = ({ onClose }) => {
         <div className="doc-body">
           
           <div className="intro-section">
-            <h4>Welcome to Bubbly 🫧</h4>
+            <h4>Welcome to Nexus 🫧</h4>
             <p>
-              Bubbly is a next-generation social platform designed to help you connect, share, and vibe with your friends. Here is a detailed guide to all the features available to you.
+              Nexus is a next-generation social platform designed to help you connect, share, and vibe with your friends. Here is a detailed guide to all the features available to you.
             </p>
           </div>
 
@@ -102,12 +102,12 @@ const DocumentationModal = ({ onClose }) => {
           <div className="feature-block">
             <h4><IoShieldCheckmark style={{marginBottom: '-2px'}}/> Terms & Privacy</h4>
             <p>
-              By using Bubbly, you agree to respect our community guidelines. We prioritize your privacy and do not share your personal data with third parties without consent. Harassment or explicit content will lead to account termination.
+              By using Nexus, you agree to respect our community guidelines. We prioritize your privacy and do not share your personal data with third parties without consent. Harassment or explicit content will lead to account termination.
             </p>
           </div>
 
           <div className="footer-note">
-            <p>© 2025 Codrexa Inc. Built with ❤️ for the Community.</p>
+            <p>© 2025 Nexus Inc. Built with ❤️ for the Community.</p>
           </div>
         </div>
 

@@ -209,6 +209,10 @@ const Profile = () => {
         <div className="profile-info">
             <div className="profile-name-row">
                 <h2 className="username">{user.name}</h2>
+                <p className="user-handle" style={{ fontSize: '14px', color: '#888', margin: '2px 0 0 0', fontWeight: '500' }}>
+            @{user.username || 'username'}
+        </p>
+                {/* <h2 className="username">{user.username}</h2> */}
                 
                 {/* 👇 1. MENU ICON (Opens MoreOptionsModal) */}
                 <IoMenuOutline 

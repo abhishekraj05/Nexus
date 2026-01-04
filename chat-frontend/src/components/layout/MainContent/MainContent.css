@@ -50,6 +50,26 @@
 
     /* Optional: Chat Button ko thoda upar shift karo mobile par */
     .chat-toggle-button {
-        bottom: 80px; 
+        bottom: 70px; 
+    }
+}
+
+
+
+/* --- MOBILE VIEW CSS --- */
+@media screen and (max-width: 768px) {
+
+    /* Existing code... */
+
+    .chat-toggle-button {
+        position: fixed; /* Zaroori hai */
+        bottom: 80px;    /* Bottom Navbar se thoda upar */
+        right: 20px;
+        z-index: 9999 !important; /* 🔥 Ye line button ko sabse upar layegi */
+    }
+    
+    /* Agar Chat Window full screen hai to usse button ke peeche rakho */
+    .chat-window {
+        z-index: 9990; /* Button (9999) se kam hona chahiye */
     }
 }

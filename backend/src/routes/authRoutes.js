@@ -9,6 +9,9 @@ const {
   deleteUser,
   getAllUsers,
   getSuggestedUsers,
+  verifyOTP,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/authController");
 
 const upload = require("../config/cloudinary");
@@ -18,7 +21,12 @@ const { authMiddleware } = require("../middleware/authMiddleware");
 // (Note: Agar authMiddleware.js mein 'export default' nahi hai, toh { authMiddleware } galat hoga)
 
 router.post("/register", registerUser);
+router.post("/verify-otp", verifyOTP);
 router.post("/login", loginUser);
+
+
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
 // Protected routes
 router.get("/", authMiddleware, getAllUsers); 

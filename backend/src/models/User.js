@@ -8,6 +8,13 @@ const UserSchema = new mongoose.Schema(
       required: [true, "Please provide a name"],
       trim: true,
     },
+    username: {
+      type: String,
+      required: [true, "Please provide a username"],
+      unique: true,
+      trim: true,
+      lowercase: true,
+    },
     email: {
       type: String,
       required: [true, "Please provide an email"],
@@ -34,6 +41,20 @@ const UserSchema = new mongoose.Schema(
       trim: true,
       maxlength: [200, "Bio 200 characters se zyada nahi ho sakta"],
     },
+    
+    isVerified: {
+      type: Boolean,
+      default: false, // Shuru mein false rahega
+    },
+    otp: {
+      type: String, // OTP store karne ke liye
+    },
+    otpExpires: {
+      type: Date, // OTP kab expire hoga
+    },
+    // ------------------------------------
+    resetOtp: { type: String },
+    resetOtpExpires: { type: Date },
     
     // --- SIRF YEH RAKHEIN ---
     // Yeh un logo ki list hai jo aapke dost ban chuke hain

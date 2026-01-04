@@ -535,8 +535,19 @@ const Feed = ({ refreshSignal }) => { // refreshSignal prop add kiya agar aapne 
                                     src={item.author?.photoURL || 'https://via.placeholder.com/40'} 
                                     alt="avatar" className="post-avatar" 
                                 />
-                                <div style={{ flex: 1 }}>
-                                    <span className="post-username">{item.author?.name || "Unknown"}</span>
+                                {/* 👇 YAHAN CHANGE KIYA HAI (Name + Username) */}
+                                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', marginLeft: '10px', justifyContent: 'center' }}>
+                                    
+                                    {/* Name */}
+                                    <span className="post-username" style={{ lineHeight: '1.2' }}>
+                                        {item.author?.name || "Unknown"}
+                                    </span>
+                                    
+                                    {/* Username */}
+                                    <span style={{ fontSize: '12px', color: '#888' }}>
+                                        @{item.author?.username || "user"}
+                                    </span>
+
                                 </div>
                                 {/* <span className="post-time">Recently</span> */}
                                 <span className="post-time">{timeAgo(item.createdAt)}</span>
@@ -550,10 +561,14 @@ const Feed = ({ refreshSignal }) => { // refreshSignal prop add kiya agar aapne 
                                         <video 
                                             src={item.mediaUrl} 
                                             className="post-media" 
-                                            controls       // Play/Pause buttons dikhenge
-                                            playsInline    // Mobile me full screen na ho
-                                            // autoPlay    // Agar auto play chahiye to uncomment karein
-                                            // muted       // Auto play ke liye muted zaroori hota hai
+                                           onClick={(e) => {
+                                            const video = e.target;
+                                            if (video.paused) {
+                                                video.play();
+                                            } else {
+                                                video.pause();
+                                            }
+                                        }}
                                         />
                                     ) : (
                                         <img src={item.mediaUrl} alt="Post" className="post-media" />

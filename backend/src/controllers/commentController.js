@@ -56,7 +56,7 @@ const getCommentsByPost = async (req, res) => {
         const { postId } = req.params;
 
         const comments = await Comment.find({ post: postId })
-            .populate('author', 'name avatar photoURL') // 'photoURL' ko 'avatar' kar diya
+            .populate('author', 'name avatar photoURL username') // 'photoURL' ko 'avatar' kar diya
             .sort({ createdAt: -1 }); // Naya comment sabse upar
 
         res.status(200).json({
@@ -99,7 +99,7 @@ const updateComment = async (req, res) => {
         await comment.save();
 
         // Updated data wapas bhejo
-        await comment.populate('author', 'name avatar');
+        await comment.populate('author', 'name avatar username');
 
         res.status(200).json({
             success: true,

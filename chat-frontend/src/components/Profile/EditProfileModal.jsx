@@ -1,30 +1,43 @@
 // import React, { useState, useContext } from 'react';
 // import { AuthContext } from '../../context/AuthContext';
-// import API from '../../api/api'; // Path check kar lena
+// import API from '../../api/api'; 
 // import { useNavigate } from 'react-router-dom';
-// import { IoClose } from 'react-icons/io5'; // Close icon
-// import './EditProfileModal.css'; // CSS file import zaroori hai
+// import { IoClose } from 'react-icons/io5'; 
+// import './EditProfileModal.css'; 
 
 // const EditProfileModal = ({ onClose }) => {
 //     const { user, logout, login } = useContext(AuthContext);
 //     const navigate = useNavigate();
 
-//     // Form State Initialize (User data se)
+//     // Form State
 //     const [formData, setFormData] = useState({
 //         name: user?.name || '',
 //         email: user?.email || '',
+//         username: user?.username || '',
 //         bio: user?.bio || '',
-//         photoURL: user?.avatar || user?.photoURL || '', // Dono check kar rahe hain
+//         photoURL: user?.avatar || user?.photoURL || '', 
 //     });
     
+//     // Sirf File State bacha hai
+//     const [file, setFile] = useState(null); 
+
 //     const [password, setPassword] = useState("");
 //     const [loading, setLoading] = useState(false);
 //     const [error, setError] = useState("");
 //     const [success, setSuccess] = useState("");
 
-//     // Input Change Handler
 //     const handleChange = (e) => {
 //         setFormData({ ...formData, [e.target.name]: e.target.value });
+//     };
+
+//     // HANDLE FILE SELECTION (Gallery)
+//     const handleFileChange = (e) => {
+//         const selectedFile = e.target.files[0];
+//         if (selectedFile) {
+//             setFile(selectedFile);
+//             // Preview ke liye temporary URL set kar rahe hain
+//             setFormData({ ...formData, photoURL: URL.createObjectURL(selectedFile) });
+//         }
 //     };
 
 //     // --- UPDATE PROFILE HANDLER ---
@@ -41,38 +54,40 @@
 //             return;
 //         }
 
-//         // Data object prepare karo
-//         const updates = {
-//             name: formData.name,
-//             bio: formData.bio,
-//             photoURL: formData.photoURL, 
-//         };
-        
-//         // Agar password field khali nahi hai, tabhi update karo
+//         const dataToSend = new FormData();
+//         dataToSend.append("name", formData.name);
+//         dataToSend.append("bio", formData.bio);
+
+//         // Logic: Agar File select ki hai to 'photo' bhejo
+//         if (file) {
+//             dataToSend.append("photo", file); 
+//         } else {
+//             // Agar file change nahi ki, to purana URL bhej do (backend handle kar lega)
+//             dataToSend.append("photoURL", formData.photoURL); 
+//         }
+
 //         if (password && password.trim() !== "") {
-//             updates.password = password;
+//             dataToSend.append("password", password);
 //         }
 
 //         try {
-//             // API Call
-//             const res = await API.put(`/auth/${user._id}`, updates, {
-//                 headers: { Authorization: `Bearer ${token}` }
+//             const res = await API.put(`/auth/${user._id}`, dataToSend, {
+//                 headers: { 
+//                     Authorization: `Bearer ${token}`,
+//                     "Content-Type": "multipart/form-data" 
+//                 }
 //             });
 
-//             // 1. LocalStorage update
 //             localStorage.setItem("user", JSON.stringify(res.data.user));
             
-//             // 2. Context Update (Taaki UI turant badal jaye)
 //             login({ 
 //                 user: res.data.user, 
 //                 token: token 
 //             });
 
 //             setSuccess("Profile updated successfully!");
-//             setPassword(""); // Password clear kar do
-            
-//             // Optional: Kuch second baad modal band karna ho to:
-//             // setTimeout(() => onClose(), 1500);
+//             setPassword(""); 
+//             setFile(null); 
 
 //         } catch (err) {
 //             console.error(err);
@@ -84,21 +99,17 @@
 
 //     // --- DELETE ACCOUNT HANDLER ---
 //     const handleDelete = async () => {
-//         if (!window.confirm("ARE YOU SURE? This action cannot be undone. All data will be lost.")) {
+//         if (!window.confirm("ARE YOU SURE? This action cannot be undone.")) {
 //             return;
 //         }
-        
 //         setLoading(true);
 //         try {
 //             const token = localStorage.getItem("token");
 //             await API.delete(`/auth/${user._id}`, {
 //                 headers: { Authorization: `Bearer ${token}` }
 //             });
-            
-//             // Logout and Redirect
 //             logout();
 //             navigate("/login");
-
 //         } catch (err) {
 //             setError(err.response?.data?.msg || "Failed to delete account.");
 //             setLoading(false);
@@ -106,11 +117,9 @@
 //     };
 
 //     return (
-//         // 👇 Ye class 'fixed' position wali hai (CSS file mein)
 //         <div className="modal-overlay">
 //             <div className="edit-modal-content">
                 
-//                 {/* Header with Close Button */}
 //                 <div className="modal-header">
 //                     <h3>Edit Profile</h3>
 //                     <button onClick={onClose} className="close-btn">
@@ -118,19 +127,32 @@
 //                     </button>
 //                 </div>
 
-//                 {/* Scrollable Body */}
 //                 <div className="modal-body scrollable-body">
 //                     <form className="profile-form" onSubmit={handleUpdate}>
                         
-//                         {/* Avatar Preview */}
+//                         {/* --- IMAGE PREVIEW & UPLOAD BUTTON --- */}
 //                         <div style={{textAlign: 'center', marginBottom: '20px'}}>
 //                             <img 
 //                                 src={formData.photoURL || "https://via.placeholder.com/100"} 
 //                                 alt="Avatar" 
 //                                 className="profile-avatar-preview"
-//                                 onError={(e) => { e.target.src = "https://via.placeholder.com/100" }} // Agar link toota ho
+//                                 onError={(e) => { e.target.src = "https://via.placeholder.com/100" }} 
 //                             />
+                            
+//                             <div style={{ marginTop: "15px", display: "flex", justifyContent: "center" }}>
+//                                 {/* Sirf Upload Button Bacha Hai */}
+//                                 <label className="profile-btn" style={{background: "#ddd", color: "#333", cursor: "pointer"}}>
+//                                     📁 Upload Photo
+//                                     <input 
+//                                         type="file" 
+//                                         onChange={handleFileChange} 
+//                                         accept="image/*"
+//                                         style={{ display: "none" }} 
+//                                     />
+//                                 </label>
+//                             </div>
 //                         </div>
+//                         {/* ------------------------------------- */}
 
 //                         <label>Name</label>
 //                         <input 
@@ -158,15 +180,6 @@
 //                             placeholder="Tell us about yourself..."
 //                         />
 
-//                         <label>Avatar URL</label>
-//                         <input 
-//                             type="text" 
-//                             name="photoURL" 
-//                             value={formData.photoURL} 
-//                             onChange={handleChange} 
-//                             placeholder="https://example.com/my-photo.jpg" 
-//                         />
-
 //                         <label>New Password</label>
 //                         <input 
 //                             type="password" 
@@ -175,11 +188,9 @@
 //                             placeholder="Leave blank to keep current password" 
 //                         />
 
-//                         {/* Status Messages */}
 //                         {success && <p className="profile-success">{success}</p>}
 //                         {error && <p className="profile-error">{error}</p>}
 
-//                         {/* Action Buttons */}
 //                         <button type="submit" className="profile-btn update-btn" disabled={loading}>
 //                             {loading ? "Updating..." : "Save Changes"}
 //                         </button>
@@ -205,8 +216,9 @@
 
 
 
+
 import React, { useState, useContext } from 'react';
-import { AuthContext } from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext'; // Path check kar lena
 import API from '../../api/api'; 
 import { useNavigate } from 'react-router-dom';
 import { IoClose } from 'react-icons/io5'; 
@@ -216,32 +228,34 @@ const EditProfileModal = ({ onClose }) => {
     const { user, logout, login } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    // Form State
+    // --- FORM STATE ---
     const [formData, setFormData] = useState({
         name: user?.name || '',
         email: user?.email || '',
+        username: user?.username || '', // ✅ Username State Added
         bio: user?.bio || '',
         photoURL: user?.avatar || user?.photoURL || '', 
     });
     
-    // Sirf File State bacha hai
     const [file, setFile] = useState(null); 
-
     const [password, setPassword] = useState("");
+    
+    // UI States
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
+    // Handle Input Change
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    // HANDLE FILE SELECTION (Gallery)
+    // Handle File Selection
     const handleFileChange = (e) => {
         const selectedFile = e.target.files[0];
         if (selectedFile) {
             setFile(selectedFile);
-            // Preview ke liye temporary URL set kar rahe hain
+            // Instant Preview
             setFormData({ ...formData, photoURL: URL.createObjectURL(selectedFile) });
         }
     };
@@ -262,16 +276,22 @@ const EditProfileModal = ({ onClose }) => {
 
         const dataToSend = new FormData();
         dataToSend.append("name", formData.name);
+        
+        // ✅ USERNAME LOGIC: Send only if exists
+        if (formData.username) {
+            dataToSend.append("username", formData.username);
+        }
+
         dataToSend.append("bio", formData.bio);
 
-        // Logic: Agar File select ki hai to 'photo' bhejo
+        // Photo Logic
         if (file) {
             dataToSend.append("photo", file); 
         } else {
-            // Agar file change nahi ki, to purana URL bhej do (backend handle kar lega)
             dataToSend.append("photoURL", formData.photoURL); 
         }
 
+        // Password Logic
         if (password && password.trim() !== "") {
             dataToSend.append("password", password);
         }
@@ -284,6 +304,7 @@ const EditProfileModal = ({ onClose }) => {
                 }
             });
 
+            // Update Local Storage & Context
             localStorage.setItem("user", JSON.stringify(res.data.user));
             
             login({ 
@@ -297,6 +318,7 @@ const EditProfileModal = ({ onClose }) => {
 
         } catch (err) {
             console.error(err);
+            // Backend duplicate username error handle karega
             setError(err.response?.data?.msg || "Failed to update profile.");
         } finally {
             setLoading(false);
@@ -336,7 +358,7 @@ const EditProfileModal = ({ onClose }) => {
                 <div className="modal-body scrollable-body">
                     <form className="profile-form" onSubmit={handleUpdate}>
                         
-                        {/* --- IMAGE PREVIEW & UPLOAD BUTTON --- */}
+                        {/* --- IMAGE UPLOAD SECTION --- */}
                         <div style={{textAlign: 'center', marginBottom: '20px'}}>
                             <img 
                                 src={formData.photoURL || "https://via.placeholder.com/100"} 
@@ -346,7 +368,6 @@ const EditProfileModal = ({ onClose }) => {
                             />
                             
                             <div style={{ marginTop: "15px", display: "flex", justifyContent: "center" }}>
-                                {/* Sirf Upload Button Bacha Hai */}
                                 <label className="profile-btn" style={{background: "#ddd", color: "#333", cursor: "pointer"}}>
                                     📁 Upload Photo
                                     <input 
@@ -358,7 +379,8 @@ const EditProfileModal = ({ onClose }) => {
                                 </label>
                             </div>
                         </div>
-                        {/* ------------------------------------- */}
+
+                        {/* --- FORM FIELDS --- */}
 
                         <label>Name</label>
                         <input 
@@ -367,6 +389,17 @@ const EditProfileModal = ({ onClose }) => {
                             value={formData.name} 
                             onChange={handleChange} 
                             placeholder="Your Name"
+                        />
+
+                        {/* ✅ USERNAME INPUT FIELD ADDED */}
+                        <label>Username</label>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            value={formData.username} 
+                            onChange={handleChange} 
+                            placeholder="Unique Username"
+                            required
                         />
 
                         <label>Email (Cannot be changed)</label>
@@ -394,9 +427,11 @@ const EditProfileModal = ({ onClose }) => {
                             placeholder="Leave blank to keep current password" 
                         />
 
+                        {/* Messages */}
                         {success && <p className="profile-success">{success}</p>}
                         {error && <p className="profile-error">{error}</p>}
 
+                        {/* Action Buttons */}
                         <button type="submit" className="profile-btn update-btn" disabled={loading}>
                             {loading ? "Updating..." : "Save Changes"}
                         </button>

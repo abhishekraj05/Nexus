@@ -6,7 +6,8 @@ const {
     createStory, 
     getStoriesFeed, 
     deleteStory, // Import kiya
-    updateStory  // Import kiya
+    updateStory,  // Import kiya
+    viewStory
 } = require("../controllers/storyController");
 
 // 1. Upload Status
@@ -20,5 +21,7 @@ router.delete("/:storyId", authMiddleware, deleteStory);
 
 // 4. Update Status (👇 NEW - File required)
 router.put("/:storyId", authMiddleware, upload.single("file"), updateStory);
+
+router.put("/:storyId/view", authMiddleware, viewStory);
 
 module.exports = router;

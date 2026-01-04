@@ -124,8 +124,147 @@
 
 
 
+// import React, { useState, useContext, useEffect } from 'react';
+// import { Routes, Route } from 'react-router-dom';
+// import { io } from "socket.io-client"; 
+// import API from "../../../api/api"; 
+// import './MainContent.css';
+
+// // Context
+// import { AuthContext } from "../../../context/AuthContext";
+
+// // Components
+// import LeftSidebar from '../LeftSidebar/LeftSidebar';
+// import BottomNavbar from '../BootomNavbar/BottomNavbar';
+// import ChatPanel from '../../Chat/ChatPanel';
+// import { ChatIcon } from '../../UI/Icons';
+// import CreatePostModal from '../../Home/CreatePostModal'; // Modal Import
+
+// // Pages
+// import HomeView from '../../Home/HomeView';
+// import FriendSystemView from '../../FriendSystem/FriendSystemView';
+// import PendingRequests from '../../FriendSystem/PendingRequests';
+// import PlaceholderView from '../../UI/PlaceholderView';
+// import Profile from '../../../pages/Profile';
+// import Reels from '../../Reels/ReelsPage';
+
+// export default function MainLayout() {
+//   const { user } = useContext(AuthContext);
+
+//   // --- States ---
+//   const [isChatOpen, setIsChatOpen] = useState(false);
+//   const [selectedChat, setSelectedChat] = useState(null);
+//   const [onlineStatuses, setOnlineStatuses] = useState({});
+//   const [socket, setSocket] = useState(null);
+
+//   // 👇 New States for Post Creation
+//   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+//   const [refreshFeedTrigger, setRefreshFeedTrigger] = useState(0); // Feed refresh counter
+
+//   // --- SOCKET LOGIC (Same as before) ---
+//   useEffect(() => {
+//     if (user) {
+//         const socketEndpoint = import.meta.env.VITE_SOCKET_ENDPOINT || "http://localhost:5000";
+//         const newSocket = io(socketEndpoint);
+//         setSocket(newSocket);
+//         newSocket.emit("setup", user._id);
+
+//         const fetchInitialStatuses = async () => {
+//             try {
+//                 const token = localStorage.getItem("token");
+//                 const res = await API.get("/friends/statuses", {
+//                       headers: { Authorization: `Bearer ${token}` }
+//                 });
+//                 setOnlineStatuses(prev => ({ ...prev, ...res.data }));
+//             } catch (error) { console.error(error); }
+//         };
+//         fetchInitialStatuses();
+
+//         newSocket.on("user_online", ({ userId }) => setOnlineStatuses(prev => ({ ...prev, [userId]: true })));
+//         newSocket.on("user_offline", ({ userId, lastSeen }) => setOnlineStatuses(prev => ({ ...prev, [userId]: lastSeen })));
+
+//         return () => { newSocket.disconnect(); };
+//     }
+//   }, [user]);
+
+//   const handleSelectChat = (chat) => {
+//     setSelectedChat(chat);
+//     setIsChatOpen(true); 
+//   };
+
+//   // 👇 Jab Post success ho jaye
+//   const handlePostSuccess = () => {
+//       setCreateModalOpen(false); // Modal band
+//       setRefreshFeedTrigger(prev => prev + 1); // Feed ko signal bhejo
+//   };
+
+//   return (
+//     <div className="app-container">
+      
+//       {/* LeftSidebar ko function pass kiya taaki wo modal khol sake */}
+//       <div className="desktop-sidebar-wrapper">
+//         <LeftSidebar onCreateClick={() => setCreateModalOpen(true)} /> 
+
+//       </div>
+
+//       <main className="main-content">
+//         <Routes>
+//           {/* 👇 HomeView ko refreshSignal pass kiya */}
+//           <Route path="/" element={<HomeView refreshSignal={refreshFeedTrigger} />} />
+          
+//           <Route path="/friends" element={<FriendSystemView onlineStatuses={onlineStatuses} />} />
+//           <Route path="/profile" element={<Profile />} />
+//           <Route path="/request" element={<PendingRequests />} />
+//           <Route path="/search" element={<PlaceholderView pageName="Search" />} />
+//           <Route path="/reels" element={<Reels pageName="Reels" />} />
+          
+//           {/* <Route path="/post" ... /> <-- ISKO HATA DO, AB MODAL USE HOGA */}
+          
+//           <Route index element={<HomeView refreshSignal={refreshFeedTrigger} />} />
+//         </Routes>
+//       </main>
+
+
+//       <div className="mobile-navbar-wrapper">
+//       <BottomNavbar onOpenCreate={() => setCreateModalOpen(true)} />    
+
+//       </div>
+
+//       {/* --- CHAT BUTTON & PANEL --- */}
+//       <button id="chat-toggle" className="chat-toggle-button" onClick={() => setIsChatOpen(!isChatOpen)}>
+//         <ChatIcon />
+//       </button>
+
+//       {isChatOpen && (
+//         <ChatPanel 
+//           onSelectChat={handleSelectChat}
+//           selectedChat={selectedChat}
+//           onlineStatuses={onlineStatuses}
+//           socket={socket}
+//         />
+//       )}
+
+//       {/* 👇 CREATE POST MODAL (Global Overlay) */}
+//       {isCreateModalOpen && (
+//           <CreatePostModal 
+//               onClose={() => setCreateModalOpen(false)}
+//               onPostSuccess={handlePostSuccess}
+//           />
+//       )}
+//     </div>
+//   );
+// }
+
+
+
+
+
+
+
+
 import React, { useState, useContext, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+// 👇 1. Yahan 'useLocation' add kiya hai (URL check karne ke liye)
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { io } from "socket.io-client"; 
 import API from "../../../api/api"; 
 import './MainContent.css';
@@ -157,9 +296,14 @@ export default function MainLayout() {
   const [onlineStatuses, setOnlineStatuses] = useState({});
   const [socket, setSocket] = useState(null);
 
-  // 👇 New States for Post Creation
+  // New States for Post Creation
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
-  const [refreshFeedTrigger, setRefreshFeedTrigger] = useState(0); // Feed refresh counter
+  const [refreshFeedTrigger, setRefreshFeedTrigger] = useState(0); 
+
+  // 👇 2. Current Location pata karne ka Logic
+  const location = useLocation();
+  // Agar user '/reels' page par hai, to ye TRUE ho jayega
+  const isReelsPage = location.pathname === "/reels";
 
   // --- SOCKET LOGIC (Same as before) ---
   useEffect(() => {
@@ -192,48 +336,45 @@ export default function MainLayout() {
     setIsChatOpen(true); 
   };
 
-  // 👇 Jab Post success ho jaye
   const handlePostSuccess = () => {
-      setCreateModalOpen(false); // Modal band
-      setRefreshFeedTrigger(prev => prev + 1); // Feed ko signal bhejo
+      setCreateModalOpen(false); 
+      setRefreshFeedTrigger(prev => prev + 1); 
   };
 
   return (
     <div className="app-container">
       
-      {/* LeftSidebar ko function pass kiya taaki wo modal khol sake */}
       <div className="desktop-sidebar-wrapper">
         <LeftSidebar onCreateClick={() => setCreateModalOpen(true)} /> 
-
       </div>
 
       <main className="main-content">
         <Routes>
-          {/* 👇 HomeView ko refreshSignal pass kiya */}
           <Route path="/" element={<HomeView refreshSignal={refreshFeedTrigger} />} />
-          
           <Route path="/friends" element={<FriendSystemView onlineStatuses={onlineStatuses} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/request" element={<PendingRequests />} />
           <Route path="/search" element={<PlaceholderView pageName="Search" />} />
           <Route path="/reels" element={<Reels pageName="Reels" />} />
           
-          {/* <Route path="/post" ... /> <-- ISKO HATA DO, AB MODAL USE HOGA */}
-          
           <Route index element={<HomeView refreshSignal={refreshFeedTrigger} />} />
+          
         </Routes>
       </main>
 
 
       <div className="mobile-navbar-wrapper">
-      <BottomNavbar onOpenCreate={() => setCreateModalOpen(true)} />    
-
+         <BottomNavbar onOpenCreate={() => setCreateModalOpen(true)} />    
       </div>
 
       {/* --- CHAT BUTTON & PANEL --- */}
-      <button id="chat-toggle" className="chat-toggle-button" onClick={() => setIsChatOpen(!isChatOpen)}>
-        <ChatIcon />
-      </button>
+      
+      {/* 👇 3. Yahan Condition Lagayi hai: Agar Reels Page nahi hai, tabhi button dikhana */}
+      {!isReelsPage && (
+          <button id="chat-toggle" className="chat-toggle-button" onClick={() => setIsChatOpen(!isChatOpen)}>
+            <ChatIcon />
+          </button>
+      )}
 
       {isChatOpen && (
         <ChatPanel 
@@ -244,7 +385,7 @@ export default function MainLayout() {
         />
       )}
 
-      {/* 👇 CREATE POST MODAL (Global Overlay) */}
+      {/* CREATE POST MODAL */}
       {isCreateModalOpen && (
           <CreatePostModal 
               onClose={() => setCreateModalOpen(false)}

@@ -66,7 +66,7 @@ exports.getStoriesFeed = async (req, res) => {
     const stories = await Story.find({
         user: { $in: allowedUsers }
     })
-    .populate("user", "name avatar photoURL") 
+    .populate("user", "name avatar photoURL username") 
     .sort({ createdAt: -1 }); 
 
     res.status(200).json({
@@ -155,6 +155,39 @@ exports.updateStory = async (req, res) => {
 
     } catch (error) {
         console.error("Error updating story:", error);
+        res.status(500).json({ success: false, error: "Server Error" });
+    }
+};
+
+
+// -------------------------------------------------------
+// 5. VIEW STORY (🔥 NEW FUNCTION)
+// -------------------------------------------------------
+exports.viewStory = async (req, res) => {
+    try {
+        const { storyId } = req.params;
+        const userId = req.user.id; // Jo banda story dekh raha hai
+
+        // $addToSet: Ye ensure karta hai ki agar user ne pehle dekh liya hai
+        // to uska ID dobara add na ho. Duplicate se bachaata hai.
+        const story = await Story.findByIdAndUpdate(
+            storyId,
+            { $addToSet: { viewers: userId } }, 
+            { new: true }
+        );
+
+        if (!story) {
+            return res.status(404).json({ success: false, error: "Story not found" });
+        }
+
+        res.status(200).json({
+            success: true,
+            message: "View counted",
+            views: story.viewers.length // Frontend ko bata do kitne views ho gaye
+        });
+
+    } catch (error) {
+        console.error("Error marking story view:", error);
         res.status(500).json({ success: false, error: "Server Error" });
     }
 };

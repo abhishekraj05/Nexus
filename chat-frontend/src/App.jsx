@@ -114,6 +114,7 @@ import LandingRoutes from './components/LandingPage/LandingRoutes';
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import NotFound from "./pages/NotFound"; // Ek 404 page (optional)
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 function App() {
   const { user } = useContext(AuthContext);
@@ -129,6 +130,8 @@ function App() {
       <Route path="/register" 
         element={user ? <Navigate to="/" /> : <Register />} 
       />
+
+      <Route path="/forgot-password" element={<ForgotPassword />} />
 
       {/* Route 3: Main App (Protected) */}
       {/* Yeh saare routes (/, /friends, /profile) MainLayout ke andar khulenge */}

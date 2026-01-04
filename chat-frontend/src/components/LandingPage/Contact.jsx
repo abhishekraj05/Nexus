@@ -22,7 +22,7 @@ const Contact = () => {
                 <div className="info-box-item">
                     <div className="icon-box-large"><IoMailOutline /></div>
                     <h3>Email Us</h3>
-                    <p>support@nexus.com</p>
+                    <p>nexusofficials012@gmail.com</p>
                     {/* <p>dev@nexus.com</p> */}
                 </div>
 
@@ -30,8 +30,8 @@ const Contact = () => {
                 <div className="info-box-item">
                     <div className="icon-box-large"><IoLocationOutline /></div>
                     <h3>Visit Us</h3>
-                    <p>Jagannath University</p>
-                    <p>Jaipur Rajsthan</p>
+                    <p>Sarairanjan</p>
+                    <p>Samastipur Bihar</p>
                 </div>
 
                 {/* Website Card */}

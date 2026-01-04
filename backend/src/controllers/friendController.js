@@ -46,7 +46,7 @@ exports.getPendingRequests = async (req, res) => {
     const requests = await FriendRequest.find({
       receiver: req.user.id,
       status: "pending",
-    }).populate("sender", "name photoURL bio"); // Bhejne waale ki details bhi le aayein
+    }).populate("sender", "name photoURL bio username"); // Bhejne waale ki details bhi le aayein
 
     res.json(requests);
   } catch (err) {
@@ -142,7 +142,7 @@ exports.getFriendsList = async (req, res) => {
     // User ke document se 'friends' array ko populate karke bhej do
     const user = await User.findById(req.user.id).populate(
       "friends",
-      "name email photoURL bio online lastSeen"
+      "name email photoURL bio online lastSeen username"
     );
     res.json(user.friends);
   } catch (err) {
@@ -194,7 +194,7 @@ exports.getFriendStatuses = async (req, res) => {
     try {
         const user = await User.findById(req.user.id)
             .select("friends") // Get the friend IDs
-            .populate("friends", "online lastSeen"); // Populate with ONLY online status and lastSeen
+            .populate("friends", "online lastSeen username"); // Populate with ONLY online status and lastSeen
 
         if (!user || !user.friends) {
             return res.json({}); // Return empty object if no friends
@@ -223,7 +223,7 @@ exports.getMyFriends = async (req, res) => {
     const friendships = await FriendRequest.find({
         status: 'accepted',
         $or: [{ sender: currentUserId }, { receiver: currentUserId }]
-    }).populate('sender receiver', 'name photoURL email'); // 👈 Check: 'photoURL' use kiya hai
+    }).populate('sender receiver', 'name photoURL email username'); // 👈 Check: 'photoURL' use kiya hai
 
     // console.log("✅ Total Friendships found:", friendships.length);
 

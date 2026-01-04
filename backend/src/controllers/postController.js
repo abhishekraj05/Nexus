@@ -66,7 +66,7 @@ exports.createPost = async (req, res) => {
 exports.getSinglePost = async (req, res) => {
     try {
         const post = await Post.findById(req.params.postId)
-            .populate("author", "name avatar photoURL");
+            .populate("author", "name avatar photoURL username");
 
         if (!post) return res.status(404).json({ success: false, error: "Post not found" });
 
@@ -108,7 +108,7 @@ exports.getFriendFeed = async (req, res) => {
         const posts = await Post.find({
             author: { $in: allowedAuthors }
         })
-            .populate("author", "name avatar photoURL")
+            .populate("author", "name avatar photoURL username")
             .sort({ createdAt: -1 });
 
         res.status(200).json({
@@ -129,7 +129,7 @@ exports.getFriendFeed = async (req, res) => {
 exports.getMyPosts = async (req, res) => {
     try {
         const posts = await Post.find({ author: req.user.id })
-            .populate("author", "name photoURL avatar")
+            .populate("author", "name photoURL avatar username")
             .sort({ createdAt: -1 });
 
         res.status(200).json({

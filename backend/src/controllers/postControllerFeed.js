@@ -56,7 +56,7 @@ const getFeedPosts = async (req, res) => {
         const posts = await Post.find({
             author: { $in: allowedUsers }
         })
-            .populate("author", "name avatar photoURL")
+            .populate("author", "name avatar photoURL username")
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);

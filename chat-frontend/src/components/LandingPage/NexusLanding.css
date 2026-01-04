@@ -847,3 +847,50 @@ body {
     font-weight: 700;
     color: white;
 }
+
+
+
+/* =========================================
+   🚨 FINAL MOBILE FIX (ISSE CONTENT NEECHE AAYEGA) 🚨
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Page Content ko Flex-Center se hatao */
+    .page-content {
+        display: block !important;       /* Flexbox tod do mobile pe */
+        padding-top: 120px !important;   /* Navbar ke liye bada gap */
+        min-height: auto !important;     /* Height ki zid chodo */
+    }
+
+    /* 2. Agar Hero Section hai to usko bhi adjust karo */
+    .hero-container {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important; /* Top se shuru karo, Center se nahi */
+        padding-top: 0px !important;
+        min-height: auto !important;
+        height: auto !important;
+    }
+}
+
+
+
+
+/* =========================================
+   MOBILE MENU FIX (Navbar Clipping Issue)
+   ========================================= */
+@media (max-width: 768px) {
+    
+    /* 1. Navbar ki height fix karo taaki calculation sahi rahe */
+    .glass-nav {
+        height: 80px !important; /* Height thodi badha di */
+        align-items: center;
+    }
+
+    /* 2. Menu ko ab 80px ke neeche se shuru karo */
+    .mobile-menu-dropdown {
+        top: 80px !important;       /* Navbar ke theek neeche */
+        padding-top: 30px !important; /* Thoda andar gap diya taaki text chipke na */
+        padding-bottom: 30px !important;
+    }
+}

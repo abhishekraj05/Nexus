@@ -39,7 +39,7 @@ exports.createDirectChat = async (req, res) => {
     // Populate members before sending back
     const populatedNewChat = await chat.populate(
       "members",
-      "name email photoURL bio"
+      "name email photoURL bio username"
     );
     console.log("Created new direct chat:", populatedNewChat._id);
     res.status(201).json(populatedNewChat);
@@ -151,7 +151,7 @@ exports.getChats = async (req, res) => {
       members: userId, // 2. FIX: Use the defined 'userId' variable here // Filter out chats that the current user has archived
       archivedBy: { $ne: userId }, // 3. FIX: Use the defined 'userId' variable here
     }) // --- FIX: Select all necessary fields (good job here) ---
-      .populate("members", "name email photoURL bio online lastSeen")
+      .populate("members", "name email photoURL bio online lastSeen username")
       .populate("admins", "name email photoURL") // Optional: Populate lastMessage sender details
       .populate({
         path: "lastMessage.senderId",
@@ -262,7 +262,7 @@ exports.getArchivedChats = async (req, res) => {
             members: userId,
             archivedBy: userId // Find chats WHERE userId IS IN archivedBy array
         })
-        .populate("members", "name email photoURL bio online lastSeen") // Populate necessary fields
+        .populate("members", "name email photoURL bio online lastSeen username") // Populate necessary fields
         .populate("lastMessage.senderId", 'name photoURL') // Populate sender of last message
         .sort({ "lastMessage.timestamp": -1 }); // Or sort as needed
 
