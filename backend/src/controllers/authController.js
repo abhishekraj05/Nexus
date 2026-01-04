@@ -702,16 +702,36 @@ const nodemailer = require("nodemailer");
 const SECRET = process.env.JWT_SECRET || "supersecret";
 
 // --- 📧 EMAIL CONFIGURATION ---
+// const transporter = nodemailer.createTransport({
+//   service: "gmail",
+//   host: "smtp.gmail.com", 
+//   port: 465, 
+//   secure: true,
+//   auth: {
+//     user: process.env.EMAIL_USER, 
+//     pass: process.env.EMAIL_PASS, 
+//   },
+// });
+
+
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
-  host: "smtp.gmail.com", 
-  port: 465, 
+  host: "smtp.gmail.com",
+  port: 465,
   secure: true,
   auth: {
-    user: process.env.EMAIL_USER, 
-    pass: process.env.EMAIL_PASS, 
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
+  // 👇 Render par ye ZAROORI hai, warna connection atak jayega
+  tls: {
+    rejectUnauthorized: false
+  },
+  // 👇 Thoda time badha do taaki turant fail na ho
+  connectionTimeout: 10000 
 });
+
 
 // ==========================================
 // 🎨 TEMPLATE 1: VERIFICATION OTP (Blue/Black)
